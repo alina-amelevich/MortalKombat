@@ -49,9 +49,9 @@ function createPlayer(playerObj) {
     $progressbar.appendChild($name);
     $character.appendChild($img);
 
-    const $arenas = document.querySelector('.arenas');
-    $arenas.appendChild($player);
+    return $player;
 }
 
-createPlayer(player1);
-createPlayer(player2);
+const $arenas = document.querySelector('.arenas');
+    $arenas.appendChild(createPlayer(player1));
+    $arenas.appendChild(createPlayer(player2));
