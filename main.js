@@ -59,8 +59,8 @@ function createPlayer(playerObj) {
 
 function changeHp(player) {
     const $playerLife = document.querySelector('.player' + player.player + ' .life');
-    player.hp -= getRandomeDamage();
-    
+    getRandomeDamage(player, 1, 20);
+
     console.log('У ' + player.name + ' осталось ' + player.hp + '')
     
     if (player.hp <= 0) {
@@ -89,11 +89,10 @@ function playerWin(name) {
     return $winTitle;
 }
 
-function getRandomeDamage() {
-    const randomeDamage = Math.floor((1 + Math.random() * (20 + 1 - 1)));
+function getRandomeDamage(player, min, max) {
+    const randomeDamage = Math.floor((min + Math.random() * (max + 1 - min)));
     console.log('randomeDamage: ' + randomeDamage);
-
-    return randomeDamage;
+    player.hp -= randomeDamage;
 }
 
 $randomButton.addEventListener('click', function() {
