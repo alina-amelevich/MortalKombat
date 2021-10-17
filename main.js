@@ -1,6 +1,7 @@
 'use strict'
 
 const $arenas = document.querySelector('.arenas');
+const $randomButton = document.querySelector('.button');
 
 const player1 = {
     player: 1,
@@ -16,7 +17,7 @@ const player1 = {
 const player2 = {
     player: 2,
     name: 'KITANA',
-    hp: 90,
+    hp: 100,
     img: 'http://reactmarathon-api.herokuapp.com/assets/kitana.gif',
     weapon: ['blade', 'gun'],
     attack: function() {
@@ -56,5 +57,29 @@ function createPlayer(playerObj) {
     return $player;
 }
 
-    $arenas.appendChild(createPlayer(player1));
-    $arenas.appendChild(createPlayer(player2));
+function changeHp(player) {
+    const $playerLife = document.querySelector('.player' + player.player + ' .life');
+    player.hp -= 20;
+    $playerLife.style.width = player.hp + '%';
+
+    if (player.hp < 0) {
+        $arenas.appendChild(playerLose(player.name));
+    }
+}
+
+function playerLose(name) {
+    const $loseTitle = createElement('div', 'loseTitle');
+    $loseTitle.innerText = name + ' lose!';
+
+    return $loseTitle;
+}
+
+$randomButton.addEventListener('click', function() {
+    console.log('Click random button');
+
+    changeHp(player1);
+    changeHp(player2);
+})
+
+$arenas.appendChild(createPlayer(player1));
+$arenas.appendChild(createPlayer(player2));
