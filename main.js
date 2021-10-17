@@ -6,7 +6,7 @@ const $randomButton = document.querySelector('.button');
 const player1 = {
     player: 1,
     name: 'LIUKANG',
-    hp: 80,
+    hp: 100,
     img: 'http://reactmarathon-api.herokuapp.com/assets/liukang.gif',
     weapon: ['machete'],
     attack: function() {
@@ -59,8 +59,13 @@ function createPlayer(playerObj) {
 
 function changeHp(player) {
     const $playerLife = document.querySelector('.player' + player.player + ' .life');
-    player.hp -= 20;
-    $playerLife.style.width = player.hp + '%';
+    player.hp -= getRandomeDamage();
+
+    if (player.hp <= 0) {
+        $playerLife.style.width = 0 + '%'
+    } else {
+        $playerLife.style.width = player.hp + '%';
+    }
 
     if (player.hp < 0) {
         $arenas.appendChild(playerLose(player.name));
@@ -72,6 +77,13 @@ function playerLose(name) {
     $loseTitle.innerText = name + ' lose!';
 
     return $loseTitle;
+}
+
+function getRandomeDamage() {
+    const randomeDamage = Math.floor((1 + Math.random() * (20 + 1 - 1)));
+    console.log(randomeDamage);
+
+    return randomeDamage;
 }
 
 $randomButton.addEventListener('click', function() {
