@@ -60,29 +60,38 @@ function createPlayer(playerObj) {
 function changeHp(player) {
     const $playerLife = document.querySelector('.player' + player.player + ' .life');
     player.hp -= getRandomeDamage();
-
+    
+    console.log('У ' + player.name + ' осталось ' + player.hp + '')
+    
     if (player.hp <= 0) {
         $playerLife.style.width = 0 + '%'
+        $randomButton.disabled = true;
+        whoIsWin();
+        // $arenas.appendChild(playerLose(player.name));
     } else {
         $playerLife.style.width = player.hp + '%';
     }
+}
 
-    if (player.hp < 0) {
-        $arenas.appendChild(playerLose(player.name));
-        $randomButton.disabled = true;
+function whoIsWin() {
+    //объекты player1/2 из глобальной области видимости
+    if (player1.hp <=0) { 
+        $arenas.appendChild(playerWin(player2.name));
+    } else if (player2.hp <=0) {
+        $arenas.appendChild(playerWin(player1.name));
     }
 }
 
-function playerLose(name) {
-    const $loseTitle = createElement('div', 'loseTitle');
-    $loseTitle.innerText = name + ' lose!';
+function playerWin(name) {
+    const $winTitle = createElement('div', 'winTitle');
+    $winTitle.innerText = name + ' won!';
 
-    return $loseTitle;
+    return $winTitle;
 }
 
 function getRandomeDamage() {
     const randomeDamage = Math.floor((1 + Math.random() * (20 + 1 - 1)));
-    console.log(randomeDamage);
+    console.log('randomeDamage: ' + randomeDamage);
 
     return randomeDamage;
 }
