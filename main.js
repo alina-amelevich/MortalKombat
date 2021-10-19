@@ -12,7 +12,7 @@ const player1 = {
     attack: function() {
         console.log(this.name + ' ' + 'Fight...')
     }
-}
+};
 
 const player2 = {
     player: 2,
@@ -23,7 +23,7 @@ const player2 = {
     attack: function() {
         console.log(this.name + ' ' + 'Fight...')
     }
-}
+};
 
 function createElement(tag, className) {
     const $tag = document.createElement(tag);
@@ -71,18 +71,20 @@ function changeHp(playerObj) {
 }
 
 function whoWon() {
-    function playerWin(name) {
+    function playerWin(winMessage) {
         const $winTitle = createElement('div', 'winTitle');
-        $winTitle.innerText = name + ' won!';
+        $winTitle.innerText = winMessage;
         
         return $winTitle;
     }
 
     //объекты player1/2 из глобальной области видимости
-    if (player1.hp <=0) { 
-        $arenas.appendChild(playerWin(player2.name));
+    if (player1.hp <=0 && player2.hp <=0) { 
+        $arenas.appendChild(playerWin('Dead heat'));
+    } else if (player1.hp <=0) { 
+        $arenas.appendChild(playerWin(player2.name + ' won!'));
     } else if (player2.hp <=0) {
-        $arenas.appendChild(playerWin(player1.name));
+        $arenas.appendChild(playerWin(player1.name + ' won!'));
     }
 }
 
