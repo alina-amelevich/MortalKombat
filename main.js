@@ -59,15 +59,14 @@ function createPlayer(playerObj) {
 
 function changeHp(player) {
     const $playerLife = document.querySelector('.player' + player.player + ' .life');
-    getRandomeDamage(player, 1, 20);
 
+    player.hp -= getRandomeDamage(1, 20);
     console.log('У ' + player.name + ' осталось ' + player.hp + '')
-    
+
     if (player.hp <= 0) {
         $playerLife.style.width = 0 + '%'
         $randomButton.disabled = true;
         whoIsWin();
-        // $arenas.appendChild(playerLose(player.name));
     } else {
         $playerLife.style.width = player.hp + '%';
     }
@@ -89,10 +88,11 @@ function playerWin(name) {
     return $winTitle;
 }
 
-function getRandomeDamage(player, min, max) {
-    const randomeDamage = Math.floor((min + Math.random() * (max + 1 - min)));
+function getRandomeDamage(min, max) {
+    const randomeDamage = Math.floor(Math.random() * (max - min + 1) + min);
     console.log('randomeDamage: ' + randomeDamage);
-    player.hp -= randomeDamage;
+
+    return randomeDamage;
 }
 
 $randomButton.addEventListener('click', function() {
