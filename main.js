@@ -63,20 +63,6 @@ function createPlayer(playerObj) {
     return $player;
 }
 
-// function changeHP(playerObj) {
-//     const $playerLife = document.querySelector(`.player${playerObj.player} .life`);
-
-//     playerObj.hp -= getRandomeDamage(1, 20);
-    
-//     // console.log(`У ${playerObj.name} осталось ${playerObj.hp} hp`);
-
-//     if (playerObj.hp <= 0) {
-//         playerObj.hp = 0;
-//     }
-
-//     $playerLife.style.width = `${playerObj.hp}%`;
-// }
-
 function changeHP(damage) {
     this.hp -=damage;
 
@@ -112,6 +98,19 @@ function getRandomeDamage(min, max) {
     return randomeDamage;
 }
 
+function createReloadButton() {
+    const $reloadWrap = createElement('div', 'reloadWrap');
+    const $reloadButton = createElement('button', 'button');
+
+    $reloadButton.innerText = 'Restart';
+
+    $reloadWrap.appendChild($reloadButton);
+
+    document.querySelector('.control').appendChild($reloadWrap);
+
+    return $reloadButton;
+}
+
 $randomButton.addEventListener('click', function() {
     player1.changeHP(getRandomeDamage(1, 20));
     player2.changeHP(getRandomeDamage(1, 20));
@@ -122,6 +121,7 @@ $randomButton.addEventListener('click', function() {
 
     if (player1.hp === 0 || player2.hp === 0 ) {
         $randomButton.disabled = true;
+        createReloadButton();
     }
 
     if (player1.hp === 0 && player1.hp < player2.hp) {
@@ -132,6 +132,8 @@ $randomButton.addEventListener('click', function() {
         $arenas.appendChild(playerWins());
     }
 });
+
+// document.querySelector('.reloadWrap .button').addEventListener('click', window.location.reload());
 
 $arenas.appendChild(createPlayer(player1));
 $arenas.appendChild(createPlayer(player2));
