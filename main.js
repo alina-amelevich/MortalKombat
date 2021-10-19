@@ -99,6 +99,7 @@ function getRandomeDamage(min, max) {
 }
 
 function createReloadButton() {
+    console.log("123");
     const $reloadWrap = createElement('div', 'reloadWrap');
     const $reloadButton = createElement('button', 'button');
 
@@ -108,7 +109,9 @@ function createReloadButton() {
 
     document.querySelector('.control').appendChild($reloadWrap);
 
-    return $reloadButton;
+    $reloadButton.addEventListener('click', () => {
+        window.location.reload();
+    });
 }
 
 $randomButton.addEventListener('click', function() {
@@ -132,8 +135,6 @@ $randomButton.addEventListener('click', function() {
         $arenas.appendChild(playerWins());
     }
 });
-
-// document.querySelector('.reloadWrap .button').addEventListener('click', window.location.reload());
 
 $arenas.appendChild(createPlayer(player1));
 $arenas.appendChild(createPlayer(player2));
