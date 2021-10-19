@@ -61,32 +61,33 @@ function changeHp(player) {
     const $playerLife = document.querySelector('.player' + player.player + ' .life');
 
     player.hp -= getRandomeDamage(1, 20);
-    console.log('У ' + player.name + ' осталось ' + player.hp + '')
+    console.log('У ' + player.name + ' осталось ' + player.hp + '');
 
     if (player.hp <= 0) {
-        $playerLife.style.width = 0 + '%'
-        $randomButton.disabled = true;
-        whoIsWin();
+        $playerLife.style.width = 0 + '%';
     } else {
         $playerLife.style.width = player.hp + '%';
     }
 }
 
 function whoIsWin() {
+    function playerWin(name) {
+        const $winTitle = createElement('div', 'winTitle');
+        $winTitle.innerText = name + ' won!';
+        
+        return $winTitle;
+    }
+
     //объекты player1/2 из глобальной области видимости
     if (player1.hp <=0) { 
         $arenas.appendChild(playerWin(player2.name));
     } else if (player2.hp <=0) {
         $arenas.appendChild(playerWin(player1.name));
     }
+
+    $randomButton.disabled = true;
 }
 
-function playerWin(name) {
-    const $winTitle = createElement('div', 'winTitle');
-    $winTitle.innerText = name + ' won!';
-
-    return $winTitle;
-}
 
 function getRandomeDamage(min, max) {
     const randomeDamage = Math.floor(Math.random() * (max - min + 1) + min);
@@ -100,7 +101,11 @@ $randomButton.addEventListener('click', function() {
 
     changeHp(player1);
     changeHp(player2);
-})
+
+    if (player1.hp <= 0 || player2.hp <= 0 ) {
+        whoIsWin();
+    }
+});
 
 $arenas.appendChild(createPlayer(player1));
 $arenas.appendChild(createPlayer(player2));
