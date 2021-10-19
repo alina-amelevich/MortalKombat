@@ -11,7 +11,10 @@ const player1 = {
     weapon: ['machete'],
     attack: function() {
         console.log(`${this.name} fight...`);
-    }
+    },
+    changeHP,
+    elHP,
+    renderHP,
 };
 
 const player2 = {
@@ -22,7 +25,10 @@ const player2 = {
     weapon: ['blade', 'gun'],
     attack: function() {
         console.log(`${this.name} fight...`);
-    }
+    },
+    changeHP,
+    elHP,
+    renderHP,
 };
 
 function createElement(tag, className) {
@@ -57,19 +63,35 @@ function createPlayer(playerObj) {
     return $player;
 }
 
-function changeHp(playerObj) {
-    const $playerLife = document.querySelector(`.player${playerObj.player} .life`);
+// function changeHP(playerObj) {
+//     const $playerLife = document.querySelector(`.player${playerObj.player} .life`);
 
-    playerObj.hp -= getRandomeDamage(1, 20);
+//     playerObj.hp -= getRandomeDamage(1, 20);
     
-    // console.log(`У ${playerObj.name} осталось ${playerObj.hp} hp`);
+//     // console.log(`У ${playerObj.name} осталось ${playerObj.hp} hp`);
 
-    if (playerObj.hp <= 0) {
-        playerObj.hp = 0;
+//     if (playerObj.hp <= 0) {
+//         playerObj.hp = 0;
+//     }
+
+//     $playerLife.style.width = `${playerObj.hp}%`;
+// }
+
+function changeHP(damage) {
+    this.hp -=damage;
+
+    if (this.hp <= 0) {
+        this.hp = 0;
     }
+}
 
-    $playerLife.style.width = `${playerObj.hp}%`;
+function elHP() {
+    // console.log(this);
+    return document.querySelector(`.player${this.player} .life`);
+}
 
+function renderHP() {
+    this.elHP().style.width = `${this.hp}%`;
 }
 
 function playerWins(name) {
@@ -91,8 +113,12 @@ function getRandomeDamage(min, max) {
 }
 
 $randomButton.addEventListener('click', function() {
-    changeHp(player1);
-    changeHp(player2);
+    player1.changeHP(getRandomeDamage(1, 20));
+    player2.changeHP(getRandomeDamage(1, 20));
+
+    player1.renderHP();
+    player2.renderHP();
+
 
     if (player1.hp === 0 || player2.hp === 0 ) {
         $randomButton.disabled = true;
