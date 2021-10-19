@@ -57,20 +57,20 @@ function createPlayer(playerObj) {
     return $player;
 }
 
-function changeHp(player) {
-    const $playerLife = document.querySelector('.player' + player.player + ' .life');
+function changeHp(playerObj) {
+    const $playerLife = document.querySelector('.player' + playerObj.player + ' .life');
 
-    player.hp -= getRandomeDamage(1, 20);
-    console.log('У ' + player.name + ' осталось ' + player.hp + '');
+    playerObj.hp -= getRandomeDamage(1, 20);
+    console.log('У ' + playerObj.name + ' осталось ' + playerObj.hp + '');
 
-    if (player.hp <= 0) {
+    if (playerObj.hp <= 0) {
         $playerLife.style.width = 0 + '%';
     } else {
-        $playerLife.style.width = player.hp + '%';
+        $playerLife.style.width = playerObj.hp + '%';
     }
 }
 
-function whoIsWin() {
+function whoWon() {
     function playerWin(name) {
         const $winTitle = createElement('div', 'winTitle');
         $winTitle.innerText = name + ' won!';
@@ -84,8 +84,6 @@ function whoIsWin() {
     } else if (player2.hp <=0) {
         $arenas.appendChild(playerWin(player1.name));
     }
-
-    $randomButton.disabled = true;
 }
 
 
@@ -103,7 +101,8 @@ $randomButton.addEventListener('click', function() {
     changeHp(player2);
 
     if (player1.hp <= 0 || player2.hp <= 0 ) {
-        whoIsWin();
+        $randomButton.disabled = true;
+        whoWon();
     }
 });
 
