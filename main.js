@@ -1,7 +1,7 @@
 'use strict'
 
 const $arenas = document.querySelector('.arenas');
-const $fightButton = document.querySelector('.button');
+// const $fightButton = document.querySelector('.button');
 const $formFight = document.querySelector('.control')
 const HIT = {
     head: 30,
@@ -168,7 +168,8 @@ $formFight.addEventListener('submit', (e) => {
     }
 
     if (player1.hp === 0 || player2.hp === 0 ) {
-        $fightButton.disabled = true;
+        // $fightButton.disabled = true;
+        $formFight.style.display = 'none';
         createReloadButton();
     }
 
