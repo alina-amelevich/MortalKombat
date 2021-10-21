@@ -130,25 +130,30 @@ function enemyAttack() {
         defence,
     }
 }
+function updateUserAttack() {
+    for (let item of $formFight) {
+        if (item.checked && item.name === 'hit') {
+            this.value = getRandome(HIT[item.value]);
+            this.hit = item.value;
+        }
+    
+        if (item.checked && item.name === 'defence') {
+            this.defence = item.value;
+        }
+
+        item.checked = false;
+    }
+}
 $formFight.addEventListener('submit', (e) => {
     e.preventDefault();
     const enemy = enemyAttack();
     // console.log('####: enemy', enemy);
 
-    const attack = {};
+    const attack = {
+        updateUserAttack,
+    };
 
-    for (let item of $formFight) {
-        if (item.checked && item.name === 'hit') {
-            attack.value = getRandome(HIT[item.value]);
-            attack.hit = item.value;
-        }
-
-        if (item.checked && item.name === 'defence') {
-            attack.defence = item.value;
-        }
-
-        item.checked = false;
-    }
+    attack.updateUserAttack();
 
     console.log('####: a', attack);
     console.log('####: e', enemy);
