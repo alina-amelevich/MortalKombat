@@ -165,26 +165,56 @@ function showResult() {
         createReloadButton();
     }
 
-    if (player1.hp === 0 && player1.hp < player2.hp) {
-        $arenas.appendChild(playerWins(player2.name));
-    } else if (player2.hp === 0 && player2.hp < player1.hp) {
+    if (player2.hp === 0 && player2.hp < player1.hp) {
+        generateLogs('end', player1, player2);
         $arenas.appendChild(playerWins(player1.name));
+    } else if (player1.hp === 0 && player1.hp < player2.hp) {
+        generateLogs('end', player2, player1);
+        $arenas.appendChild(playerWins(player2.name));
     } else if (player1.hp === 0 && player2.hp === 0) {
+        generateLogs('draw');
         $arenas.appendChild(playerWins());
     }
 }
 
 function generateLogs(type, pl1, pl2, damage) {
-    //pl1 - наносит удар, pl2 - защищается
-    const text = `${getTime()} - ${
-        window.logs[type][getRandome(window.logs[type].length) - 1]
-        .replace('[playerKick]', pl1.name)
-        .replace('[playerDefence]', pl2.name)
-    } -${damage} [${pl2.hp}/100]`;
-    // console.log(text);
+// pl1 - наносит удар, pl2 - защищается 
+// или pl1 - wins, pl2 - lose
+
+    let text;
+    switch (type) {
+        case ('hit' || 'defence'):
+            text = `${getTime()} - ${
+                window.logs[type][getRandome(window.logs[type].length) - 1]
+                .replace('[playerKick]', pl1.name)
+                .replace('[playerDefence]', pl2.name)
+            } -${damage} [${pl2.hp}/100]`;
+            break;
+
+        case 'end':
+            text = `${getTime()} - ${window.logs[type][0]
+                .replace('[playerWins]', pl1.name)
+                .replace('[playerLose]', pl2.name)
+            }`;
+            break;
+
+        case 'draw':
+            text = `${getTime()} - ${window.logs[type][0]}`;
+            break;
+
+        case 'start':
+            window.logs[type].replace('[time]', getTime());
+            break;
+
+        default:
+            console.log('что-то пошло не так');
+            break;
+    }
+
     const el = `<p>${text}</p>`;
     $chat.insertAdjacentHTML('afterbegin', el);
 }
+
 
 $formFight.addEventListener('submit', (e) => {
     e.preventDefault();
