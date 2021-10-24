@@ -183,12 +183,20 @@ function generateLogs(type, pl1, pl2, damage) {
 
     let text;
     switch (type) {
-        case ('hit' || 'defence'):
+        case ('hit'):
             text = `${getTime()} - ${
                 window.logs[type][getRandome(window.logs[type].length) - 1]
                 .replace('[playerKick]', pl1.name)
                 .replace('[playerDefence]', pl2.name)
             } -${damage} [${pl2.hp}/100]`;
+            break;
+
+        case ('defence'):
+            text = `${getTime()} - ${
+                window.logs[type][getRandome(window.logs[type].length) - 1]
+                .replace('[playerKick]', pl1.name)
+                .replace('[playerDefence]', pl2.name)
+            }`;
             break;
 
         case 'end':
@@ -228,11 +236,16 @@ $formFight.addEventListener('submit', (e) => {
         player1.changeHP(enemy.value);
         player1.renderHP();
         generateLogs('hit', player2, player1, enemy.value);
+    } else {
+        generateLogs('defence', player2, player1);
     }
+
     if (userPlayer.hit !== enemy.defence) {
         player2.changeHP(userPlayer.value);
         player2.renderHP();
         generateLogs('hit', player1, player2, userPlayer.value);
+    } else {
+        generateLogs('defence', player1, player2);
     }
 
     showResult();
