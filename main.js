@@ -174,8 +174,13 @@ function showResult() {
     }
 }
 
-function generateLogs(type, pl1, pl2) {
-    const text = `${getTime()} - ${window.logs[type][getRandome(window.logs[type].length) - 1].replace('[playerKick]', pl1.name).replace('[playerDefence]', pl2.name)}`;
+function generateLogs(type, pl1, pl2, damage) {
+    //pl1 - наносит удар, pl2 - защищается
+    const text = `${getTime()} - ${
+        window.logs[type][getRandome(window.logs[type].length) - 1]
+        .replace('[playerKick]', pl1.name)
+        .replace('[playerDefence]', pl2.name)
+    } -${damage} [${pl2.hp}/100]`;
     // console.log(text);
     const el = `<p>${text}</p>`;
     $chat.insertAdjacentHTML('afterbegin', el);
@@ -192,12 +197,12 @@ $formFight.addEventListener('submit', (e) => {
     if (enemy.hit !== userPlayer.defence) {
         player1.changeHP(enemy.value);
         player1.renderHP();
-        generateLogs('hit', player2, player1);
+        generateLogs('hit', player2, player1, enemy.value);
     }
     if (userPlayer.hit !== enemy.defence) {
         player2.changeHP(userPlayer.value);
         player2.renderHP();
-        generateLogs('hit', player1, player2);
+        generateLogs('hit', player1, player2, userPlayer.value);
     }
 
     showResult();
