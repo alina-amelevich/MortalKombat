@@ -126,9 +126,6 @@ function createReloadButton() {
     });
 }
 
-$arenas.appendChild(createPlayer(player1));
-$arenas.appendChild(createPlayer(player2));
-
 function enemyAttack() {
     const hit = ATTACK[getRandome(3) - 1];
     const defence = ATTACK[getRandome(3) - 1];
@@ -211,7 +208,11 @@ function generateLogs(type, pl1, pl2, damage) {
             break;
 
         case 'start':
-            window.logs[type].replace('[time]', getTime());
+            text = `${window.logs[type]
+            .replace('[time]', getTime())
+            .replace('[player1]', pl1.name)
+            .replace('[player2]', pl2.name)
+        }`;
             break;
 
         default:
@@ -223,6 +224,10 @@ function generateLogs(type, pl1, pl2, damage) {
     $chat.insertAdjacentHTML('afterbegin', el);
 }
 
+$arenas.appendChild(createPlayer(player1));
+$arenas.appendChild(createPlayer(player2));
+
+generateLogs('start', player1, player2);
 
 $formFight.addEventListener('submit', (e) => {
     e.preventDefault();
