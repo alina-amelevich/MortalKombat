@@ -71,6 +71,14 @@ function createPlayer(playerObj) {
     return $player;
 }
 
+function getTime() {
+    const date = new Date();
+    const formalizeTime = (number) => `${(number >= 10) ? '' : '0'}${number}`;
+    const time = `${formalizeTime(date.getHours())}:${formalizeTime(date.getMinutes())}`;
+
+    return time;
+}
+
 function changeHP(damage) {
     this.hp -=damage;
 
@@ -167,8 +175,8 @@ function showResult() {
 }
 
 function generateLogs(type, pl1, pl2) {
-    const text = window.logs[type][0].replace('[playerKick]', pl1.name).replace('[playerDefence]', pl2.name);
-    console.log(text);
+    const text = `${getTime()} - ${window.logs[type][getRandome(window.logs[type].length) - 1].replace('[playerKick]', pl1.name).replace('[playerDefence]', pl2.name)}`;
+    // console.log(text);
     const el = `<p>${text}</p>`;
     $chat.insertAdjacentHTML('afterbegin', el);
 }
