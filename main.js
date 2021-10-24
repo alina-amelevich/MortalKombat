@@ -2,7 +2,8 @@
 
 const $arenas = document.querySelector('.arenas');
 // const $fightButton = document.querySelector('.button');
-const $formFight = document.querySelector('.control')
+const $formFight = document.querySelector('.control');
+const $chat = document.querySelector('.chat');
 const HIT = {
     head: 30,
     body: 25,
@@ -165,6 +166,13 @@ function showResult() {
     }
 }
 
+function generateLogs(type, pl1, pl2) {
+    const text = window.logs[type][0].replace('[playerKick]', pl1.name).replace('[playerDefence]', pl2.name);
+    console.log(text);
+    const el = `<p>${text}</p>`;
+    $chat.insertAdjacentHTML('afterbegin', el);
+}
+
 $formFight.addEventListener('submit', (e) => {
     e.preventDefault();
     const enemy = enemyAttack();
@@ -176,10 +184,12 @@ $formFight.addEventListener('submit', (e) => {
     if (enemy.hit !== userPlayer.defence) {
         player1.changeHP(enemy.value);
         player1.renderHP();
+        generateLogs('hit', player2, player1);
     }
     if (userPlayer.hit !== enemy.defence) {
         player2.changeHP(userPlayer.value);
         player2.renderHP();
+        generateLogs('hit', player1, player2);
     }
 
     showResult();
