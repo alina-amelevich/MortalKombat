@@ -192,7 +192,7 @@ function generateLogs(type, pl1, pl2, damage) {
             break;
 
         case 'end':
-            text = `${getTime()} - ${window.logs[type][0]
+            text = `${getTime()} - ${window.logs[type][getRandome(window.logs[type].length) - 1]
                 .replace('[playerWins]', pl1.name)
                 .replace('[playerLose]', pl2.name)
             }`;
