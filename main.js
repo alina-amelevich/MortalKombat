@@ -130,43 +130,26 @@ function enemyAttack() {
         defence,
     }
 }
-function updateUserAttack() {
+function userAttack() {
+    const attack = {};
+
     for (let item of $formFight) {
         if (item.checked && item.name === 'hit') {
-            this.value = getRandome(HIT[item.value]);
-            this.hit = item.value;
+            attack.value = getRandome(HIT[item.value]);
+            attack.hit = item.value;
         }
     
         if (item.checked && item.name === 'defence') {
-            this.defence = item.value;
+            attack.defence = item.value;
         }
 
         item.checked = false;
     }
+
+    return attack;
 }
-$formFight.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const enemy = enemyAttack();
-    // console.log('####: enemy', enemy);
 
-    const attack = {
-        updateUserAttack,
-    };
-
-    attack.updateUserAttack();
-
-    console.log('####: a', attack);
-    console.log('####: e', enemy);
-
-    if (enemy.hit !== attack.defence) {
-        player1.changeHP(enemy.value);
-        player1.renderHP();
-    }
-    if (attack.hit !== enemy.defence) {
-        player2.changeHP(attack.value);
-        player2.renderHP();
-    }
-
+function showResult() {
     if (player1.hp === 0 || player2.hp === 0 ) {
         // $fightButton.disabled = true;
         $formFight.style.display = 'none';
@@ -180,4 +163,24 @@ $formFight.addEventListener('submit', (e) => {
     } else if (player1.hp === 0 && player2.hp === 0) {
         $arenas.appendChild(playerWins());
     }
-})
+}
+
+$formFight.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const enemy = enemyAttack();
+    const userPlayer = userAttack();
+
+    console.log('####: a', userPlayer);
+    console.log('####: e', enemy);
+
+    if (enemy.hit !== userPlayer.defence) {
+        player1.changeHP(enemy.value);
+        player1.renderHP();
+    }
+    if (userPlayer.hit !== enemy.defence) {
+        player2.changeHP(userPlayer.value);
+        player2.renderHP();
+    }
+
+    showResult();
+});
