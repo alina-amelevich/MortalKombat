@@ -186,24 +186,24 @@ function generateLogs(type, pl1, pl2, damage) {
         case 'hit':
             text = `${currentTime} - ${
                 randomPhrase
-                .replace('[playerKick]', pl1.name)
-                .replace('[playerDefence]', pl2.name)
+                    .replace('[playerKick]', pl1.name)
+                    .replace('[playerDefence]', pl2.name)
             } -${damage} [${pl2.hp}/100]`;
             break;
 
         case 'defence':
             text = `${currentTime} - ${
                 randomPhrase
-                .replace('[playerKick]', pl1.name)
-                .replace('[playerDefence]', pl2.name)
+                    .replace('[playerKick]', pl1.name)
+                    .replace('[playerDefence]', pl2.name)
             }`;
             break;
 
         case 'end':
             text = `${currentTime} - ${
                 randomPhrase
-                .replace('[playerWins]', pl1.name)
-                .replace('[playerLose]', pl2.name)
+                    .replace('[playerWins]', pl1.name)
+                    .replace('[playerLose]', pl2.name)
             }`;
             break;
 
