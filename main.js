@@ -1,7 +1,6 @@
 'use strict'
 
 const $arenas = document.querySelector('.arenas');
-// const $fightButton = document.querySelector('.button');
 const $formFight = document.querySelector('.control');
 const $chat = document.querySelector('.chat');
 const HIT = {
@@ -157,7 +156,6 @@ function userAttack() {
 
 function showResult() {
     if (player1.hp === 0 || player2.hp === 0 ) {
-        // $fightButton.disabled = true;
         $formFight.style.display = 'none';
         createReloadButton();
     }
@@ -208,7 +206,7 @@ function generateLogs(type, pl1, pl2, damage) {
             break;
 
         case 'draw':
-            text = `${currentTime} - ${randomPhrase}`;
+            text = `${currentTime} - ${window.logs[type]}`;
             break;
 
         case 'start':
