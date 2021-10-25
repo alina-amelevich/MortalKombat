@@ -179,37 +179,41 @@ function generateLogs(type, pl1, pl2, damage) {
 // или pl1 - wins, pl2 - lose
 
     let text;
+    const currentTime = getTime();
+    const randomPhrase = window.logs[type][getRandome(window.logs[type].length) - 1];
+
     switch (type) {
         case ('hit'):
-            text = `${getTime()} - ${
-                window.logs[type][getRandome(window.logs[type].length) - 1]
+            text = `${currentTime} - ${
+                randomPhrase
                 .replace('[playerKick]', pl1.name)
                 .replace('[playerDefence]', pl2.name)
             } -${damage} [${pl2.hp}/100]`;
             break;
 
         case ('defence'):
-            text = `${getTime()} - ${
-                window.logs[type][getRandome(window.logs[type].length) - 1]
+            text = `${currentTime} - ${
+                randomPhrase
                 .replace('[playerKick]', pl1.name)
                 .replace('[playerDefence]', pl2.name)
             }`;
             break;
 
         case 'end':
-            text = `${getTime()} - ${window.logs[type][getRandome(window.logs[type].length) - 1]
+            text = `${currentTime} - ${
+                randomPhrase
                 .replace('[playerWins]', pl1.name)
                 .replace('[playerLose]', pl2.name)
             }`;
             break;
 
         case 'draw':
-            text = `${getTime()} - ${window.logs[type][0]}`;
+            text = `${currentTime} - ${randomPhrase}`;
             break;
 
         case 'start':
             text = `${window.logs[type]
-            .replace('[time]', getTime())
+            .replace('[time]', currentTime)
             .replace('[player1]', pl1.name)
             .replace('[player2]', pl2.name)
         }`;
