@@ -178,10 +178,12 @@ function generateLogs(type, pl1, pl2, damage) {
 
     let text;
     const currentTime = getTime();
-    const randomPhrase = window.logs[type][getRandome(window.logs[type].length) - 1];
+    const randomPhrase = window.logs[type][
+        getRandome(window.logs[type].length) - 1
+    ];
 
     switch (type) {
-        case ('hit'):
+        case 'hit':
             text = `${currentTime} - ${
                 randomPhrase
                 .replace('[playerKick]', pl1.name)
@@ -189,7 +191,7 @@ function generateLogs(type, pl1, pl2, damage) {
             } -${damage} [${pl2.hp}/100]`;
             break;
 
-        case ('defence'):
+        case 'defence':
             text = `${currentTime} - ${
                 randomPhrase
                 .replace('[playerKick]', pl1.name)
@@ -206,15 +208,15 @@ function generateLogs(type, pl1, pl2, damage) {
             break;
 
         case 'draw':
-            text = `${currentTime} - ${window.logs[type]}`;
+            text = `${currentTime} - ${randomPhrase}`;
             break;
 
         case 'start':
-            text = `${window.logs[type]
-            .replace('[time]', currentTime)
-            .replace('[player1]', pl1.name)
-            .replace('[player2]', pl2.name)
-        }`;
+            text = `${randomPhrase
+                .replace('[time]', currentTime)
+                .replace('[player1]', pl1.name)
+                .replace('[player2]', pl2.name)
+            }`;
             break;
 
         default:
