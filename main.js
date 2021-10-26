@@ -1,5 +1,7 @@
 'use strict'
 
+import { logs } from "./logs.js";
+
 const $arenas = document.querySelector('.arenas');
 const $formFight = document.querySelector('.control');
 const $chat = document.querySelector('.chat');
@@ -178,8 +180,8 @@ function generateLogs(type, pl1, pl2, damage) {
 
     let text;
     const currentTime = getTime();
-    const randomPhrase = window.logs[type][
-        getRandome(window.logs[type].length) - 1
+    const randomPhrase = logs[type][
+        getRandome(logs[type].length) - 1
     ];
 
     switch (type) {
