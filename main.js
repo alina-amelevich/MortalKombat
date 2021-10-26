@@ -73,7 +73,7 @@ function createPlayer(playerObj) {
     return $player;
 }
 
-function getTime() {
+const getTime = () => {
     const date = new Date();
     const formalizeTime = (number) => `${(number >= 10) ? '' : '0'}${number}`;
     const time = `${formalizeTime(date.getHours())}:${formalizeTime(date.getMinutes())}`;
