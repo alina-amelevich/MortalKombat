@@ -1,11 +1,10 @@
 'use strict'
+
 import { player1, player2 } from './players.js';
-import { getTime, getRandome } from './utils.js';
 import { $formFight } from './fight.js';
-import { logs } from './logs.js';
+import { generateLogs } from './logs.js';
 import { createPlayer, createReloadButton, createWinTitle } from './creatingComponents.js';
 const $arenas = document.querySelector('.arenas');
-const $chat = document.querySelector('.chat');
 
 const showResult = () => {
     const {name: name1, hp: hp1} = player1;
@@ -26,64 +25,6 @@ const showResult = () => {
         generateLogs('draw');
         $arenas.appendChild(createWinTitle());
     }
-}
-
-const generateLogs = (type, pl1, pl2, damage) => {
-// pl1 - наносит удар, pl2 - защищается 
-// или pl1 - wins, pl2 - lose
-    const { name: name1 } = pl1;
-    const { name: name2, hp: hp2 } = pl2;
-
-    let text;
-    const currentTime = getTime();
-    const randomPhrase = logs[type][
-        getRandome(logs[type].length) - 1
-    ];
-
-    switch (type) {
-        case 'hit':
-            text = `${currentTime} - ${
-                randomPhrase
-                    .replace('[playerKick]', name1)
-                    .replace('[playerDefence]', name2)
-            } -${damage} [${hp2}/100]`;
-            break;
-
-        case 'defence':
-            text = `${currentTime} - ${
-                randomPhrase
-                    .replace('[playerKick]', name1)
-                    .replace('[playerDefence]', name2)
-            }`;
-            break;
-
-        case 'end':
-            text = `${currentTime} - ${
-                randomPhrase
-                    .replace('[playerWins]', name1)
-                    .replace('[playerLose]', name2)
-            }`;
-            break;
-
-        case 'draw':
-            text = `${currentTime} - ${randomPhrase}`;
-            break;
-
-        case 'start':
-            text = `${randomPhrase
-                .replace('[time]', currentTime)
-                .replace('[player1]', name1)
-                .replace('[player2]', name2)
-            }`;
-            break;
-
-        default:
-            console.log('что-то пошло не так');
-            break;
-    }
-
-    const el = `<p>${text}</p>`;
-    $chat.insertAdjacentHTML('afterbegin', el);
 }
 
 $arenas.appendChild(createPlayer(player1));
