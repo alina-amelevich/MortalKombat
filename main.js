@@ -32,7 +32,7 @@ const createPlayer = (playerObj) => {
     return $player;
 }
 
-const playerWins = (name) => {
+const createWinTitle = (name) => {
     const $winTitle = createElement('div', 'winTitle');
 
     if (name) {
@@ -51,11 +51,12 @@ const createReloadButton = () => {
     $reloadButton.innerText = 'Restart';
 
     $reloadWrap.appendChild($reloadButton);
-    $arenas.appendChild($reloadWrap);
 
     $reloadButton.addEventListener('click', () => {
         window.location.reload();
     });
+
+    return $reloadWrap;
 }
 
 const showResult = () => {
@@ -64,18 +65,18 @@ const showResult = () => {
 
     if (hp1 === 0 || hp2 === 0 ) {
         $formFight.style.display = 'none';
-        createReloadButton();
+        $arenas.appendChild(createReloadButton());
     }
 
     if (hp2 === 0 && hp2 < hp1) {
         generateLogs('end', player1, player2);
-        $arenas.appendChild(playerWins(name1));
+        $arenas.appendChild(createWinTitle(name1));
     } else if (hp1 === 0 && hp1 < hp2) {
         generateLogs('end', player2, player1);
-        $arenas.appendChild(playerWins(name2));
+        $arenas.appendChild(createWinTitle(name2));
     } else if (hp1 === 0 && hp2 === 0) {
         generateLogs('draw');
-        $arenas.appendChild(playerWins());
+        $arenas.appendChild(createWinTitle());
     }
 }
 
