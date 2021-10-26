@@ -180,6 +180,8 @@ function showResult() {
 function generateLogs(type, pl1, pl2, damage) {
 // pl1 - наносит удар, pl2 - защищается 
 // или pl1 - wins, pl2 - lose
+    const { name: name1 } = pl1;
+    const { name: name2, hp: hp2 } = pl2;
 
     let text;
     const currentTime = getTime();
@@ -191,24 +193,24 @@ function generateLogs(type, pl1, pl2, damage) {
         case 'hit':
             text = `${currentTime} - ${
                 randomPhrase
-                    .replace('[playerKick]', pl1.name)
-                    .replace('[playerDefence]', pl2.name)
-            } -${damage} [${pl2.hp}/100]`;
+                    .replace('[playerKick]', name1)
+                    .replace('[playerDefence]', name2)
+            } -${damage} [${hp2}/100]`;
             break;
 
         case 'defence':
             text = `${currentTime} - ${
                 randomPhrase
-                    .replace('[playerKick]', pl1.name)
-                    .replace('[playerDefence]', pl2.name)
+                    .replace('[playerKick]', name1)
+                    .replace('[playerDefence]', name2)
             }`;
             break;
 
         case 'end':
             text = `${currentTime} - ${
                 randomPhrase
-                    .replace('[playerWins]', pl1.name)
-                    .replace('[playerLose]', pl2.name)
+                    .replace('[playerWins]', name1)
+                    .replace('[playerLose]', name2)
             }`;
             break;
 
@@ -219,8 +221,8 @@ function generateLogs(type, pl1, pl2, damage) {
         case 'start':
             text = `${randomPhrase
                 .replace('[time]', currentTime)
-                .replace('[player1]', pl1.name)
-                .replace('[player2]', pl2.name)
+                .replace('[player1]', name1)
+                .replace('[player2]', name2)
             }`;
             break;
 
