@@ -109,9 +109,7 @@ function playerWins(name) {
     return $winTitle;
 }
 
-function getRandome(max) {
-    return Math.floor(Math.random() * (max - 1 + 1) + 1);
-}
+const getRandome = (max) => Math.floor(Math.random() * (max - 1 + 1) + 1);
 
 function createReloadButton() {
     const $reloadWrap = createElement('div', 'reloadWrap');
