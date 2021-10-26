@@ -1,63 +1,11 @@
 'use strict'
-import { player1, player2 } from "./players.js";
-import { createElement, getTime, getRandome } from "./utils.js";
-import { $formFight } from "./fight.js";
-import { logs } from "./logs.js";
-
+import { player1, player2 } from './players.js';
+import { getTime, getRandome } from './utils.js';
+import { $formFight } from './fight.js';
+import { logs } from './logs.js';
+import { createPlayer, createReloadButton, createWinTitle } from './creatingComponents.js';
 const $arenas = document.querySelector('.arenas');
 const $chat = document.querySelector('.chat');
-
-
-const createPlayer = (playerObj) => {
-    const { player, name, hp, img } = playerObj;
-    const $player = createElement('div', `player${player}`);
-    const $progressbar = createElement('div', 'progressbar');
-    const $character = createElement('div', 'character');
-    const $life = createElement('div', 'life');
-    const $name = createElement('div', 'name');
-    const $img = createElement('img');
-
-    $life.style.width = `${hp}%`;
-    $name.innerText = name;
-    $img.src = img;
-    
-    $progressbar.appendChild($life);
-    $progressbar.appendChild($name);
-
-    $character.appendChild($img);
-    
-    $player.appendChild($progressbar);
-    $player.appendChild($character);
-
-    return $player;
-}
-
-const createWinTitle = (name) => {
-    const $winTitle = createElement('div', 'winTitle');
-
-    if (name) {
-        $winTitle.innerText = `${name} wins!`;
-    } else {
-        $winTitle.innerText = 'Dead heat';
-    }
-
-    return $winTitle;
-}
-
-const createReloadButton = () => {
-    const $reloadWrap = createElement('div', 'reloadWrap');
-    const $reloadButton = createElement('button', 'button');
-
-    $reloadButton.innerText = 'Restart';
-
-    $reloadWrap.appendChild($reloadButton);
-
-    $reloadButton.addEventListener('click', () => {
-        window.location.reload();
-    });
-
-    return $reloadWrap;
-}
 
 const showResult = () => {
     const {name: name1, hp: hp1} = player1;
