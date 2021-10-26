@@ -242,24 +242,26 @@ generateLogs('start', player1, player2);
 
 $formFight.addEventListener('submit', (e) => {
     e.preventDefault();
-    const enemy = enemyAttack();
     const userPlayer = userAttack();
+    const enemy = enemyAttack();
+    const { value: userVal, hit: userHit, defence: userDef } = userPlayer;
+    const { value: enemyVal, hit: enemyHit, defence: enemyDef } = enemy;
 
     console.log('####: a', userPlayer);
     console.log('####: e', enemy);
 
-    if (enemy.hit !== userPlayer.defence) {
-        player1.changeHP(enemy.value);
+    if (enemyHit !== userDef) {
+        player1.changeHP(enemyVal);
         player1.renderHP();
-        generateLogs('hit', player2, player1, enemy.value);
+        generateLogs('hit', player2, player1, enemyVal);
     } else {
         generateLogs('defence', player2, player1);
     }
 
-    if (userPlayer.hit !== enemy.defence) {
-        player2.changeHP(userPlayer.value);
+    if (userHit !== enemyDef) {
+        player2.changeHP(userVal);
         player2.renderHP();
-        generateLogs('hit', player1, player2, userPlayer.value);
+        generateLogs('hit', player1, player2, userVal);
     } else {
         generateLogs('defence', player1, player2);
     }
