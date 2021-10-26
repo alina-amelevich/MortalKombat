@@ -1,7 +1,7 @@
 'use strict'
 import { player1, player2 } from "./players.js";
 import { createElement, getTime, getRandome } from "./utils.js";
-import { $formFight, userAttack, enemyAttack } from "./fight.js";
+import { $formFight } from "./fight.js";
 import { logs } from "./logs.js";
 
 const $arenas = document.querySelector('.arenas');
@@ -144,8 +144,8 @@ generateLogs('start', player1, player2);
 
 $formFight.addEventListener('submit', (e) => {
     e.preventDefault();
-    const userPlayer = userAttack();
-    const enemy = enemyAttack();
+    const userPlayer = player1.attack();
+    const enemy = player2.attack();
     const { value: userVal, hit: userHit, defence: userDef } = userPlayer;
     const { value: enemyVal, hit: enemyHit, defence: enemyDef } = enemy;
 

@@ -1,3 +1,5 @@
+'use strict'
+import { userAttack, enemyAttack } from "./fight.js";
 export const player1 = {
     player: 1,
     name: 'KITANA',
@@ -7,9 +9,7 @@ export const player1 = {
     changeHP,
     elHP,
     renderHP,
-    attack: function() {
-        console.log(`${this.name} fight...`);
-    },
+    attack: userAttack,
 };
 
 export const player2 = {
@@ -21,9 +21,7 @@ export const player2 = {
     changeHP,
     elHP,
     renderHP,
-    attack: function() {
-        console.log(`${this.name} fight...`);
-    },
+    attack: enemyAttack,
 };
 
 function changeHP(damage) {
