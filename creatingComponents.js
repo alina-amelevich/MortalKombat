@@ -15,12 +15,10 @@ export const createPlayer = (playerObj) => {
     $life.style.width = `${hp}%`;
     $name.innerText = name;
     $img.src = img;
-    
+
     $progressbar.appendChild($life);
     $progressbar.appendChild($name);
-
     $character.appendChild($img);
-    
     $player.appendChild($progressbar);
     $player.appendChild($character);
 
