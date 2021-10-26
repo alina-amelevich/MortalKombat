@@ -90,7 +90,6 @@ function changeHP(damage) {
 }
 
 function elHP() {
-    // console.log(this);
     return document.querySelector(`.player${this.player} .life`);
 }
 
@@ -158,18 +157,21 @@ function userAttack() {
 }
 
 function showResult() {
-    if (player1.hp === 0 || player2.hp === 0 ) {
+    const {name: name1, hp: hp1} = player1;
+    const {name: name2, hp: hp2} = player2;
+
+    if (hp1 === 0 || hp2 === 0 ) {
         $formFight.style.display = 'none';
         createReloadButton();
     }
 
-    if (player2.hp === 0 && player2.hp < player1.hp) {
+    if (hp2 === 0 && hp2 < hp1) {
         generateLogs('end', player1, player2);
-        $arenas.appendChild(playerWins(player1.name));
-    } else if (player1.hp === 0 && player1.hp < player2.hp) {
+        $arenas.appendChild(playerWins(name1));
+    } else if (hp1 === 0 && hp1 < hp2) {
         generateLogs('end', player2, player1);
-        $arenas.appendChild(playerWins(player2.name));
-    } else if (player1.hp === 0 && player2.hp === 0) {
+        $arenas.appendChild(playerWins(name2));
+    } else if (hp1 === 0 && hp2 === 0) {
         generateLogs('draw');
         $arenas.appendChild(playerWins());
     }
