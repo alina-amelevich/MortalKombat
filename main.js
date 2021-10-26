@@ -1,5 +1,6 @@
 'use strict'
-
+import { player1, player2 } from "./players.js";
+import { createElement, getTime, getRandome } from "./utils.js";
 import { logs } from "./logs.js";
 
 const $arenas = document.querySelector('.arenas');
@@ -11,43 +12,6 @@ const HIT = {
     foot: 20,
 }
 const ATTACK = ['head', 'body', 'foot'];
-
-const player1 = {
-    player: 1,
-    name: 'KITANA',
-    hp: 100,
-    img: 'http://reactmarathon-api.herokuapp.com/assets/kitana.gif',
-    weapon: ['blade', 'gun'],
-    changeHP,
-    elHP,
-    renderHP,
-    attack: function() {
-        console.log(`${this.name} fight...`);
-    },
-};
-
-const player2 = {
-    player: 2,
-    name: 'LIU KANG',
-    hp: 100,
-    img: 'http://reactmarathon-api.herokuapp.com/assets/liukang.gif',
-    weapon: ['machete'],
-    changeHP,
-    elHP,
-    renderHP,
-    attack: function() {
-        console.log(`${this.name} fight...`);
-    },
-};
-
-const createElement = (tag, className) => {
-    const $tag = document.createElement(tag);
-    if (className) {
-        $tag.classList.add(className);
-    }
-
-    return $tag;
-}
 
 const createPlayer = (playerObj) => {
     const { player, name, hp, img } = playerObj;
@@ -73,30 +37,6 @@ const createPlayer = (playerObj) => {
     return $player;
 }
 
-const getTime = () => {
-    const date = new Date();
-    const formalizeTime = (number) => `${(number >= 10) ? '' : '0'}${number}`;
-    const time = `${formalizeTime(date.getHours())}:${formalizeTime(date.getMinutes())}`;
-
-    return time;
-}
-
-function changeHP(damage) {
-    this.hp -=damage;
-
-    if (this.hp <= 0) {
-        this.hp = 0;
-    }
-}
-
-function elHP() {
-    return document.querySelector(`.player${this.player} .life`);
-}
-
-function renderHP() {
-    this.elHP().style.width = `${this.hp}%`;
-}
-
 const playerWins = (name) => {
     const $winTitle = createElement('div', 'winTitle');
 
@@ -108,8 +48,6 @@ const playerWins = (name) => {
 
     return $winTitle;
 }
-
-const getRandome = (max) => Math.floor(Math.random() * (max - 1 + 1) + 1);
 
 const createReloadButton = () => {
     const $reloadWrap = createElement('div', 'reloadWrap');
@@ -135,6 +73,7 @@ const enemyAttack = () => {
         defence,
     }
 }
+
 const userAttack = () => {
     const attack = {};
 
