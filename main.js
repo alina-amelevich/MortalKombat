@@ -1,17 +1,12 @@
 'use strict'
 import { player1, player2 } from "./players.js";
 import { createElement, getTime, getRandome } from "./utils.js";
+import { $formFight, userAttack, enemyAttack } from "./fight.js";
 import { logs } from "./logs.js";
 
 const $arenas = document.querySelector('.arenas');
-const $formFight = document.querySelector('.control');
 const $chat = document.querySelector('.chat');
-const HIT = {
-    head: 30,
-    body: 25,
-    foot: 20,
-}
-const ATTACK = ['head', 'body', 'foot'];
+
 
 const createPlayer = (playerObj) => {
     const { player, name, hp, img } = playerObj;
@@ -61,36 +56,6 @@ const createReloadButton = () => {
     $reloadButton.addEventListener('click', () => {
         window.location.reload();
     });
-}
-
-const enemyAttack = () => {
-    const hit = ATTACK[getRandome(3) - 1];
-    const defence = ATTACK[getRandome(3) - 1];
-
-    return {
-        value: getRandome(HIT[hit]),
-        hit,
-        defence,
-    }
-}
-
-const userAttack = () => {
-    const attack = {};
-
-    for (let item of $formFight) {
-        if (item.checked && item.name === 'hit') {
-            attack.value = getRandome(HIT[item.value]);
-            attack.hit = item.value;
-        }
-    
-        if (item.checked && item.name === 'defence') {
-            attack.defence = item.value;
-        }
-
-        item.checked = false;
-    }
-
-    return attack;
 }
 
 const showResult = () => {
