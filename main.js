@@ -40,7 +40,7 @@ const player2 = {
     },
 };
 
-function createElement(tag, className) {
+const createElement = (tag, className) => {
     const $tag = document.createElement(tag);
     if (className) {
         $tag.classList.add(className);
@@ -49,7 +49,7 @@ function createElement(tag, className) {
     return $tag;
 }
 
-function createPlayer(playerObj) {
+const createPlayer = (playerObj) => {
     const { player, name, hp, img } = playerObj;
     const $player = createElement('div', `player${player}`);
     const $progressbar = createElement('div', 'progressbar');
@@ -97,7 +97,7 @@ function renderHP() {
     this.elHP().style.width = `${this.hp}%`;
 }
 
-function playerWins(name) {
+const playerWins = (name) => {
     const $winTitle = createElement('div', 'winTitle');
 
     if (name) {
@@ -111,7 +111,7 @@ function playerWins(name) {
 
 const getRandome = (max) => Math.floor(Math.random() * (max - 1 + 1) + 1);
 
-function createReloadButton() {
+const createReloadButton = () => {
     const $reloadWrap = createElement('div', 'reloadWrap');
     const $reloadButton = createElement('button', 'button');
 
@@ -125,7 +125,7 @@ function createReloadButton() {
     });
 }
 
-function enemyAttack() {
+const enemyAttack = () => {
     const hit = ATTACK[getRandome(3) - 1];
     const defence = ATTACK[getRandome(3) - 1];
 
@@ -135,7 +135,7 @@ function enemyAttack() {
         defence,
     }
 }
-function userAttack() {
+const userAttack = () => {
     const attack = {};
 
     for (let item of $formFight) {
@@ -154,7 +154,7 @@ function userAttack() {
     return attack;
 }
 
-function showResult() {
+const showResult = () => {
     const {name: name1, hp: hp1} = player1;
     const {name: name2, hp: hp2} = player2;
 
@@ -175,7 +175,7 @@ function showResult() {
     }
 }
 
-function generateLogs(type, pl1, pl2, damage) {
+const generateLogs = (type, pl1, pl2, damage) => {
 // pl1 - наносит удар, pl2 - защищается 
 // или pl1 - wins, pl2 - lose
     const { name: name1 } = pl1;
