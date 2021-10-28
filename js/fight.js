@@ -12,7 +12,10 @@ const HIT = {
   foot: 20,
 }
 export class User extends Player {
+
   attack() {
+    console.log('##: this in User Attack', this)
+
     const attack = {};
 
     for (let item of $formFight) {
@@ -32,6 +35,7 @@ export class User extends Player {
   }
 }
 export class Enemy extends Player {
+
   attack() {
     const hit = ATTACK[Utils.getRandome(3) - 1];
     const defence = ATTACK[Utils.getRandome(3) - 1];

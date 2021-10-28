@@ -32,13 +32,16 @@ export class Game {
     Logs.generateLogs('start', player1, player2);
 
     $formFight.addEventListener('submit', this.submit);
+
+    console.log('##: player1 in start', player1, '##: player2 in start', player2);
   }
 
-  submit(e) {
+  //В методе ниже теряется контекст this, поэтому стрелочная функция спасает
+  submit = (e) => {
     e.preventDefault();
 
     const { player1, player2 } = this;
-
+    console.log('##: player1 in submit', player1, '##: player2 in submit', player2);
     const userPlayer = player1.attack();
     const enemy = player2.attack();
 
