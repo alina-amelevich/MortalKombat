@@ -1,11 +1,27 @@
 'use strict'
 
-import { player1, player2 } from './players.js';
-import { $formFight } from './fight.js';
+import { $formFight, User, Enemy } from './fight.js';
 import { generateLogs } from './logs.js';
 import { createPlayer, createReloadButton, createWinTitle }
   from './creatingComponents.js';
 const $arenas = document.querySelector('.arenas');
+
+const player1 = new User({
+  player: 1,
+  name: 'KITANA',
+  hp: 100,
+  img: 'http://reactmarathon-api.herokuapp.com/assets/kitana.gif',
+  //weapon: ['blade', 'gun'],
+});
+
+const player2 = new Enemy({
+  player: 2,
+  name: 'LIU KANG',
+  hp: 100,
+  img: 'http://reactmarathon-api.herokuapp.com/assets/liukang.gif',
+  //weapon: ['machete'],
+});
+
 
 const showResult = () => {
   if (player1.hp === 0 || player2.hp === 0) {
