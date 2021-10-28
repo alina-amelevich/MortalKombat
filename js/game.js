@@ -23,6 +23,7 @@ export class Game {
     });
 
   }
+
   start() {
     const { player1, player2 } = this;
 
@@ -31,21 +32,24 @@ export class Game {
 
     Logs.generateLogs('start', player1, player2);
 
-    $formFight.addEventListener('submit', this.submit.bind(this));
-    //использую bind чтобы не терять контекст this при работе ф-ции submit
-
-    console.log('##: player1 in start', player1, '##: player2 in start', player2);
+    $formFight.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.hit();
+    });
   }
 
-  //В методе-колбэке ниже теряется контекст у this, нашла 2 выхода из ситуации:
-  // 1 - сделать Submit стрелочной ф-цией (линтер ругается)
+  //Если использовать hit/submit как метод-колбэк, теряется контекст у this, нашла 3 выхода из ситуации:
+  // 1 - сделать hit/submit стрелочной ф-цией (линтер ругается)
   // 2 - использовать bind
-  // ОСТАНОВИЛАСЬ НА 2-ОМ ВАРИАНТЕ -> см.строку 34
-  submit(e) {
-    e.preventDefault();
+  // 3 - переписать:
+  //  $formFight.addEventListener('submit', (e) => {
+  //    e.preventDefault();
+  //    hit();  Ниже описать ф-цию hit() как метод класса Game
+  //  });
+  // ОСТАНОВИЛАСЬ НА 3-ЕМ ВАРИАНТЕ
 
+  hit() {
     const { player1, player2 } = this;
-    console.log('##: player1 in submit', player1, '##: player2 in submit', player2);
     const userPlayer = player1.attack();
     const enemy = player2.attack();
 

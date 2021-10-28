@@ -14,8 +14,6 @@ const HIT = {
 export class User extends Player {
 
   attack() {
-    console.log('##: this in User Attack', this)
-
     const attack = {};
 
     for (let item of $formFight) {
