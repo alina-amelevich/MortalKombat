@@ -16,9 +16,9 @@ export class Game {
 
     this.player2 = new Enemy({
       player: 2,
-      name: 'LIU KANG',
+      name: 'SONYA',
       hp: 100,
-      img: 'http://reactmarathon-api.herokuapp.com/assets/liukang.gif',
+      img: 'http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
       //weapon: ['machete'],
     });
 
