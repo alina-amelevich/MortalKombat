@@ -3,25 +3,23 @@
 import { player1, player2 } from './players.js';
 import { $formFight } from './fight.js';
 import { generateLogs } from './logs.js';
-import { createPlayer, createReloadButton, createWinTitle } from './creatingComponents.js';
+import { createPlayer, createReloadButton, createWinTitle }
+  from './creatingComponents.js';
 const $arenas = document.querySelector('.arenas');
 
 const showResult = () => {
-  const { name: name1, hp: hp1 } = player1;
-  const { name: name2, hp: hp2 } = player2;
-
-  if (hp1 === 0 || hp2 === 0) {
+  if (player1.hp === 0 || player2.hp === 0) {
     $formFight.style.display = 'none';
     $arenas.appendChild(createReloadButton());
   }
 
-  if (hp2 === 0 && hp2 < hp1) {
+  if (player2.hp === 0 && player2.hp < player1.hp) {
     generateLogs('end', player1, player2);
-    $arenas.appendChild(createWinTitle(name1));
-  } else if (hp1 === 0 && hp1 < hp2) {
+    $arenas.appendChild(createWinTitle(player1.name));
+  } else if (player1.hp === 0 && player1.hp < player2.hp) {
     generateLogs('end', player2, player1);
-    $arenas.appendChild(createWinTitle(name2));
-  } else if (hp1 === 0 && hp2 === 0) {
+    $arenas.appendChild(createWinTitle(player2.name));
+  } else if (player1.hp === 0 && player2.hp === 0) {
     generateLogs('draw');
     $arenas.appendChild(createWinTitle());
   }
