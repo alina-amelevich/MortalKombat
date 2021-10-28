@@ -4,6 +4,7 @@ import { Utils } from './utils.js';
 
 export class Creator {
 
+  //Может стоит сделать ф-цию createPlayer методом класса Player?
   static createPlayer(playerObj) {
     const { player, name, hp, img } = playerObj;
 

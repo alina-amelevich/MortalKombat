@@ -1,6 +1,6 @@
 import { $formFight, User, Enemy } from './fight.js';
 import { Logs } from './logs.js';
-import { Creator } from './creatingComponents.js';
+import { Creator } from './create.js';
 const $arenas = document.querySelector('.arenas');
 
 
