@@ -1,10 +1,10 @@
 'use strict'
 
-import { getTime, getRandome } from './utils.js';
+import { Utils } from './utils.js';
 
 const $chat = document.querySelector('.chat');
 
-const logs = {
+const LOGS = {
   start: [
     '⚔️ Часы показывали [time], когда [player1] и [player2] бросили вызов друг другу ⚔️',
   ],
@@ -53,57 +53,60 @@ const logs = {
   ],
 };
 
-export const generateLogs = (type, pl1, pl2, damage) => {
-  // pl1 - наносит удар, pl2 - защищается
-  // или pl1 - wins, pl2 - lose
-  const { name: name1 } = pl1;
-  const { name: name2, hp: hp2 } = pl2;
+export class Logs {
 
-  let text;
-  const currentTime = getTime();
-  const randomPhrase = logs[type][
-    getRandome(logs[type].length) - 1
-  ];
+  static GenerateLogs(type, pl1, pl2, damage) {
+    // pl1 - наносит удар, pl2 - защищается
+    // или pl1 - wins, pl2 - lose
+    const { name: name1 } = pl1;
+    const { name: name2, hp: hp2 } = pl2;
 
-  switch (type) {
-    case 'hit':
-      text = `${currentTime} - ${randomPhrase
+    let text;
+    const currentTime = Utils.getTime();
+    const randomPhrase = LOGS[type][
+      Utils.getRandome(LOGS[type].length) - 1
+    ];
+
+    switch (type) {
+      case 'hit':
+        text = `${currentTime} - ${randomPhrase
           .replace('[playerKick]', name1)
           .replace('[playerDefence]', name2)
-        } -${damage} [${hp2}/100]`;
-      break;
+          } -${damage} [${hp2}/100]`;
+        break;
 
-    case 'defence':
-      text = `${currentTime} - ${randomPhrase
+      case 'defence':
+        text = `${currentTime} - ${randomPhrase
           .replace('[playerKick]', name1)
           .replace('[playerDefence]', name2)
-        }`;
-      break;
+          }`;
+        break;
 
-    case 'end':
-      text = `${currentTime} - ${randomPhrase
+      case 'end':
+        text = `${currentTime} - ${randomPhrase
           .replace('[playerWins]', name1)
           .replace('[playerLose]', name2)
-        }`;
-      break;
+          }`;
+        break;
 
-    case 'draw':
-      text = `${currentTime} - ${randomPhrase}`;
-      break;
+      case 'draw':
+        text = `${currentTime} - ${randomPhrase}`;
+        break;
 
-    case 'start':
-      text = `${randomPhrase
-        .replace('[time]', currentTime)
-        .replace('[player1]', name1)
-        .replace('[player2]', name2)
-        }`;
-      break;
+      case 'start':
+        text = `${randomPhrase
+          .replace('[time]', currentTime)
+          .replace('[player1]', name1)
+          .replace('[player2]', name2)
+          }`;
+        break;
 
-    default:
-      console.log('что-то пошло не так');
-      break;
+      default:
+        console.log('что-то пошло не так');
+        break;
+    }
+
+    const el = `<p>${text}</p>`;
+    $chat.insertAdjacentHTML('afterbegin', el);
   }
-
-  const el = `<p>${text}</p>`;
-  $chat.insertAdjacentHTML('afterbegin', el);
 }

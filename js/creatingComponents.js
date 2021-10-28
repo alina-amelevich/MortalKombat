@@ -1,53 +1,56 @@
 'use strict'
 
-import { createElement } from './utils.js';
+import { Utils } from './utils.js';
 
-export const createPlayer = (playerObj) => {
-  const { player, name, hp, img } = playerObj;
+export class Creater {
 
-  const $player = createElement('div', `player${player}`);
-  const $progressbar = createElement('div', 'progressbar');
-  const $character = createElement('div', 'character');
-  const $life = createElement('div', 'life');
-  const $name = createElement('div', 'name');
-  const $img = createElement('img');
+  static createPlayer(playerObj) {
+    const { player, name, hp, img } = playerObj;
 
-  $life.style.width = `${hp}%`;
-  $name.innerText = name;
-  $img.src = img;
+    const $player = Utils.createElement('div', `player${player}`);
+    const $progressbar = Utils.createElement('div', 'progressbar');
+    const $character = Utils.createElement('div', 'character');
+    const $life = Utils.createElement('div', 'life');
+    const $name = Utils.createElement('div', 'name');
+    const $img = Utils.createElement('img');
 
-  $progressbar.appendChild($life);
-  $progressbar.appendChild($name);
-  $character.appendChild($img);
-  $player.appendChild($progressbar);
-  $player.appendChild($character);
+    $life.style.width = `${hp}%`;
+    $name.innerText = name;
+    $img.src = img;
 
-  return $player;
-}
+    $progressbar.appendChild($life);
+    $progressbar.appendChild($name);
+    $character.appendChild($img);
+    $player.appendChild($progressbar);
+    $player.appendChild($character);
 
-export const createWinTitle = (name) => {
-  const $winTitle = createElement('div', 'winTitle');
-
-  if (name) {
-    $winTitle.innerText = `${name} wins!`;
-  } else {
-    $winTitle.innerText = 'Dead heat';
+    return $player;
   }
 
-  return $winTitle;
-}
+  static createWinTitle(name) {
+    const $winTitle = Utils.createElement('div', 'winTitle');
 
-export const createReloadButton = () => {
-  const $reloadWrap = createElement('div', 'reloadWrap');
-  const $reloadButton = createElement('button', 'button');
+    if (name) {
+      $winTitle.innerText = `${name} wins!`;
+    } else {
+      $winTitle.innerText = 'Dead heat';
+    }
 
-  $reloadButton.innerText = 'Restart';
+    return $winTitle;
+  }
 
-  $reloadWrap.appendChild($reloadButton);
+  static createReloadButton() {
+    const $reloadWrap = Utils.createElement('div', 'reloadWrap');
+    const $reloadButton = Utils.createElement('button', 'button');
 
-  $reloadButton.addEventListener('click', () => {
-    window.location.reload();
-  });
+    $reloadButton.innerText = 'Restart';
 
-  return $reloadWrap;
+    $reloadWrap.appendChild($reloadButton);
+
+    $reloadButton.addEventListener('click', () => {
+      window.location.reload();
+    });
+
+    return $reloadWrap;
+  }
 }

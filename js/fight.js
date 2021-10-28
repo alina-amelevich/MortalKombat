@@ -1,7 +1,7 @@
 'use strict'
 
 import { Player } from './player.js';
-import { getRandome } from './utils.js';
+import { Utils } from './utils.js';
 
 export const $formFight = document.querySelector('.control');
 
@@ -17,7 +17,7 @@ export class User extends Player {
 
     for (let item of $formFight) {
       if (item.checked && item.name === 'hit') {
-        attack.value = getRandome(HIT[item.value]);
+        attack.value = Utils.getRandome(HIT[item.value]);
         attack.hit = item.value;
       }
 
@@ -33,11 +33,11 @@ export class User extends Player {
 }
 export class Enemy extends Player {
   attack() {
-    const hit = ATTACK[getRandome(3) - 1];
-    const defence = ATTACK[getRandome(3) - 1];
+    const hit = ATTACK[Utils.getRandome(3) - 1];
+    const defence = ATTACK[Utils.getRandome(3) - 1];
 
     return {
-      value: getRandome(HIT[hit]),
+      value: Utils.getRandome(HIT[hit]),
       hit,
       defence,
     }
