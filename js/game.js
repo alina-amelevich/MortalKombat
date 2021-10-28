@@ -8,17 +8,17 @@ export class Game {
   constructor() {
     this.player1 = new User({
       player: 1,
-      name: 'KITANA',
+      name: 'ANKA',
       hp: 100,
-      img: 'http://reactmarathon-api.herokuapp.com/assets/kitana.gif',
+      img: 'https://i.gifer.com/bh8.gif',
       //weapon: ['blade', 'gun'],
     });
 
     this.player2 = new Enemy({
       player: 2,
-      name: 'SONYA',
+      name: 'SASHKA',
       hp: 100,
-      img: 'http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
+      img: 'https://i.gifer.com/3Whj.gif',
       //weapon: ['machete'],
     });
 
