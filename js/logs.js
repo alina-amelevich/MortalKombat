@@ -55,7 +55,7 @@ const LOGS = {
 
 export class Logs {
 
-  static GenerateLogs(type, pl1, pl2, damage) {
+  static generateLogs(type, pl1, pl2, damage) {
     // pl1 - наносит удар, pl2 - защищается
     // или pl1 - wins, pl2 - lose
     const { name: name1 } = pl1;
