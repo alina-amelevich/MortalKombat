@@ -2,7 +2,7 @@
 
 import { Utils } from './utils.js';
 
-export class Creater {
+export class Creator {
 
   static createPlayer(playerObj) {
     const { player, name, hp, img } = playerObj;
