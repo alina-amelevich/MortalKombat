@@ -31,6 +31,22 @@ const CARACTER_VARIANTS = [
     name: 'NATASHKA',
     img: 'https://i.gifer.com/3Whj.gif',
   },
+  {
+    name: 'RICK SANCHEZ',
+    img: 'https://i.gifer.com/WG8Q.gif',
+  },
+  {
+    name: 'SHARK',
+    img: 'https://i.gifer.com/XiPu.gif',
+  },
+  {
+    name: 'BLACK CAT',
+    img: 'https://i.gifer.com/DAn.gif',
+  },
+  {
+    name: 'BAD ROBOT',
+    img: 'https://i.gifer.com/3q63.gif',
+  },
 ];
 
 export class GameSelector {
