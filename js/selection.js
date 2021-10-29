@@ -40,7 +40,7 @@ export class GameSelector {
     this.player2 = player2;
   }
 
-  selectArena() {
+  generateArena() {
     const i = 1; //сооств второму элементу массива классов элемента $arenas
     const arenasQuantity = 6; //соотв. количеству доступных арен
 
@@ -48,16 +48,19 @@ export class GameSelector {
     $arenas.classList.add(`arena${Utils.getRandome(arenasQuantity)}`);
   }
 
-  selectUserCharacter() {
-    const caracterIndex = Utils.getRandome(this.caracter.length) - 1;
-    this.player1.name = this.caracter[caracterIndex].name;
-    this.player1.img = this.caracter[caracterIndex].img;
-  }
+  generateCharacters() {
+    const caracterIndex1 = Utils.getRandome(this.caracter.length) - 1;
+    this.player1.name = this.caracter[caracterIndex1].name;
+    this.player1.img = this.caracter[caracterIndex1].img;
+    let caracterIndex2;
 
-  selectEnemyCharacter() {
-    const caracterIndex = Utils.getRandome(this.caracter.length) - 1;
-    this.player2.name = this.caracter[caracterIndex].name;
-    this.player2.img = this.caracter[caracterIndex].img;
+    //следующий цикл должен исключить генерацию двух одинаковых персоажей
+    do {
+      caracterIndex2 = Utils.getRandome(this.caracter.length) - 1;
+    } while (caracterIndex1 === caracterIndex2);
+
+    this.player2.name = this.caracter[caracterIndex2].name;
+    this.player2.img = this.caracter[caracterIndex2].img;
   }
 
 }

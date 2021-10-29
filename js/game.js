@@ -32,9 +32,8 @@ export class Game {
       player1: player1,
       player2: player2,
     });
-    gameSelection.selectArena();
-    gameSelection.selectUserCharacter();
-    gameSelection.selectEnemyCharacter();
+    gameSelection.generateArena();
+    gameSelection.generateCharacters();
     // - РАНДОМНАЯ ГЕНЕРАЦИЯ ПЕРСОНАЖЕЙ И АРЕН -
 
 
