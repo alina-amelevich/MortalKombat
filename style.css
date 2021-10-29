@@ -77,24 +77,29 @@ body {
 }
 
 .arenas.arena1 {
-  background-image: url(./assets/scorpions-lair-arenas.png);
+  background-image: url(./assets/shangtsung-arena.jpeg);
 }
 
 .arenas.arena2 {
-  background-image: url(./assets/the-cave.png);
+  background-image: url(./assets/scorpions-lair-arenas.png);
 }
 
 .arenas.arena3 {
-  background-image: url(./assets/jade-s-desert.png);
+  background-image: url(./assets/the-cave.png);
 }
 
 .arenas.arena4 {
-  background-image: url(./assets/scislac-busorez.png);
+  background-image: url(./assets/jade-s-desert.png);
 }
 
 .arenas.arena5 {
+  background-image: url(./assets/scislac-busorez.png);
+}
+
+.arenas.arena6 {
   background-image: url(./assets/waterfront.png);
 }
+
 
 .player1,
 .player2 {
@@ -141,11 +146,11 @@ body {
 }
 
 .extralife .life {
-  background: #00d600;
+  background: #67aa67;
 }
 
 .life {
-  background-color: #0431f9;
+  background-color: #5f6daf;
   height: 100%;
   width: 90%;
 }
