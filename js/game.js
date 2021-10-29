@@ -1,7 +1,7 @@
 import { $formFight, User, Enemy } from './fight.js';
 import { Logs } from './logs.js';
 import { Creator } from './create.js';
-const $arenas = document.querySelector('.arenas');
+import { $arenas, GameSelector } from './selection.js';
 
 
 export class Game {
@@ -26,6 +26,17 @@ export class Game {
 
   start() {
     const { player1, player2 } = this;
+
+    // - РАНДОМНАЯ ГЕНЕРАЦИЯ ПЕРСОНАЖЕЙ И АРЕН -
+    const gameSelection = new GameSelector({
+      player1: player1,
+      player2: player2,
+    });
+    gameSelection.selectArena();
+    gameSelection.selectUserCharacter();
+    gameSelection.selectEnemyCharacter();
+    // - РАНДОМНАЯ ГЕНЕРАЦИЯ ПЕРСОНАЖЕЙ И АРЕН -
+
 
     $arenas.appendChild(Creator.createPlayer(player1));
     $arenas.appendChild(Creator.createPlayer(player2));
