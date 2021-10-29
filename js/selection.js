@@ -44,8 +44,8 @@ const CARACTER_VARIANTS = [
     img: 'https://i.gifer.com/DAn.gif',
   },
   {
-    name: 'BAD ROBOT',
-    img: 'https://i.gifer.com/3q63.gif',
+    name: 'SPANCH BOB',
+    img: 'https://i.gifer.com/RNSD.gif',
   },
 ];
 
