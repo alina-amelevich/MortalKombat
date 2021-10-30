@@ -1,36 +1,36 @@
 import { $formFight, User, Enemy } from './fight.js';
 import { Logs } from './logs.js';
 import { Creator } from './create.js';
+import { Utils } from './utils.js';
 const $arenas = document.querySelector('.arenas');
 
-
 export class Game {
-  constructor() {
+
+  getPlayers() {
+    return fetch('https://reactmarathon-api.herokuapp.com/api/mk/players').then(res => res.json());
+  }
+
+  async start() {
+    const players = await this.getPlayers();
+    const p1 = players[Utils.getRandome(players.length) - 1];
+    const p2 = players[Utils.getRandome(players.length) - 1];
+
     this.player1 = new User({
+      ...p1,
       player: 1,
-      name: 'KITANA',
-      hp: 100,
-      img: 'http://reactmarathon-api.herokuapp.com/assets/kitana.gif',
-      //weapon: ['blade', 'gun'],
+      // rootSelector: 'arenas',
     });
 
     this.player2 = new Enemy({
+      ...p2,
       player: 2,
-      name: 'LIU KANG',
-      hp: 100,
-      img: 'http://reactmarathon-api.herokuapp.com/assets/liukang.gif',
-      //weapon: ['machete'],
+      // rootSelector: 'arenas',
     });
 
-  }
+    $arenas.appendChild(Creator.createPlayer(this.player1));
+    $arenas.appendChild(Creator.createPlayer(this.player2));
 
-  start() {
-    const { player1, player2 } = this;
-
-    $arenas.appendChild(Creator.createPlayer(player1));
-    $arenas.appendChild(Creator.createPlayer(player2));
-
-    Logs.generateLogs('start', player1, player2);
+    Logs.generateLogs('start', this.player1, this.player2);
 
     $formFight.addEventListener('submit', (e) => {
       e.preventDefault();
