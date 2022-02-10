@@ -5,11 +5,28 @@ import { Utils } from './utils.js';
 const $arenas = document.querySelector('.arenas');
 
 export class Game {
-
+  /**
+   * Метод getPlayers вызывается из метода start
+   * @returns {array} - Массив объектов персонажей с полями id, name, img, hp, avatar
+   */
   getPlayers() {
     return fetch('https://reactmarathon-api.herokuapp.com/api/mk/players').then(res => res.json());
   }
 
+  /**
+   * Метод start запускает метод getPlayers, дожидается ответа с массивом объектов перосонажей
+   * и кладет его в переменную players,
+   * Затем с пом-ю метода getRandome выбирает случайных персонажей из массиива
+   * и кладет их в переменные p1 и p2,
+   * создает объекты player 1/2 - экземпляры классов User и Enemy,
+   * с пом-ю spred-оператора расширяет экземпляры полями player и полями объектов p1 и p2 соотв.,
+   * дважды вызывается метод createPlayer для объектов player 1/2,
+   * возвращающиий  переменные $player, содержащие набор html-элементов для игроков,
+   * добавляет $player на арену,
+   * вызывает generateLogs для генерации стартовых логов,
+   * подписывается под событие нажатия кнопки 'FIGHT',
+   * при возниникновении событиия вызывается метод hit.
+   */
   async start() {
     const players = await this.getPlayers();
     const p1 = players[Utils.getRandome(players.length) - 1];
@@ -18,16 +35,18 @@ export class Game {
     this.player1 = new User({
       ...p1,
       player: 1,
-      // rootSelector: 'arenas',
+      // rootSelector: 'arenas', //это поле может понадобится,
+      // если я вынесу  $arenas.appendChild в отдельный метод
     });
 
     this.player2 = new Enemy({
       ...p2,
       player: 2,
-      // rootSelector: 'arenas',
+      // rootSelector: 'arenas', //это поле может понадобится,
+      // если я вынесу  $arenas.appendChild в отдельный метод
     });
 
-    $arenas.appendChild(Creator.createPlayer(this.player1));
+    $arenas.appendChild(Creator.createPlayer(this.player1)); //получ. $player и добавляем на арену
     $arenas.appendChild(Creator.createPlayer(this.player2));
 
     Logs.generateLogs('start', this.player1, this.player2);
@@ -48,6 +67,15 @@ export class Game {
   //  });
   // ОСТАНОВИЛАСЬ НА 3-ЕМ ВАРИАНТЕ
 
+  /**
+   * Метод hit вызывается при нажатии кнопки 'FIGHT'.
+   * Запускает метод attack у игроков,
+   * затем вызывает методы изменения и отрисовки hp игроков (changeHP и renderHP)
+   * и генерацию логов (generateLogs)
+   * (Если удар пришелся на ту часть тела, на которую была выставлена защиита,
+   * changeHP и renderHP не вызываются),
+   * затем вызывается метод showResult.
+   */
   hit() {
     const { player1, player2 } = this;
     const userPlayer = player1.attack();
@@ -75,6 +103,16 @@ export class Game {
     this.showResult();
   }
 
+  /**
+  * Метод  вызывается после совершения атаки игроков из hit.
+  * Если hp хотя бы одного из игроков === 0, скрывается форма команд боя,
+  * вызывается метод createReloadButton,
+  * и $reloadButton добавляется в арену,
+  * определяется победитель,
+  * вызывается генерация логов (generateLogs),
+  * вызывается метод createWinTitle,
+  * и $winTitle добавляется в арену.
+  */
   showResult() {
     const { player1, player2 } = this;
 
