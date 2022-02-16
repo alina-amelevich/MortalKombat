@@ -13,6 +13,11 @@ const HIT = {
 }
 export class User extends Player {
 
+  /**
+   * Метод создает и возвращает объект, содержащий инфу об ударе и защите user
+   * @returns {object} - объект attack c полями value - кол-во ед-ц. урона, которое наносит user,
+   * hit - часть тела, куда user наносит удар, defence - часть тела, которую user защищает
+   */
   attack() {
     const attack = {};
 
@@ -34,6 +39,11 @@ export class User extends Player {
 }
 export class Enemy extends Player {
 
+  /**
+  * Метод создает и возвращает объект, содержащий инфу об ударе и защите enemy
+  * @returns {object} - объект attack c полями value - кол-во ед-ц. урона, которое наносит enemy,
+  * hit - часть тела, куда enemy наносит удар, defence - часть тела, которую enemy защищает
+  */
   attack() {
     const hit = ATTACK[Utils.getRandome(3) - 1];
     const defence = ATTACK[Utils.getRandome(3) - 1];
