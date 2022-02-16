@@ -17,8 +17,10 @@ export class Game {
   /**
    * Метод start запускает метод getPlayers, дожидается ответа с массивом объектов перосонажей
    * и кладет его в переменную players,
-   * Затем с пом-ю метода getRandome выбирает случайных персонажей из массиива
-   * и кладет их в переменные p1 и p2,
+   * Затем с пом-ю метода getRandome выбирает случайного персонажа из массиива
+   * и кладет их в переменную p1,
+   * делает запрос на сервер для получения случаного врага,
+   * кладет ответ в p2,
    * создает объекты player 1/2 - экземпляры классов User и Enemy,
    * с пом-ю spred-оператора расширяет экземпляры полями player и полями объектов p1 и p2 соотв.,
    * дважды вызывается метод createPlayer для объектов player 1/2,
@@ -31,7 +33,7 @@ export class Game {
   async start() {
     const players = await this.getPlayers();
     const p1 = players[Utils.getRandome(players.length) - 1];
-    const p2 = players[Utils.getRandome(players.length) - 1];
+    const p2 = await fetch('https://reactmarathon-api.herokuapp.com/api/mk/player/choose').then(res => res.json());
 
     this.player1 = new User({
       ...p1,
