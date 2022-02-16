@@ -1,3 +1,5 @@
+'use strict'
+
 import { $formFight, User, Enemy } from './fight.js';
 import { Logs } from './logs.js';
 import { Creator } from './create.js';
