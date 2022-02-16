@@ -2,27 +2,19 @@ import { $formFight, User, Enemy } from './fight.js';
 import { Logs } from './logs.js';
 import { Creator } from './create.js';
 import { Utils } from './utils.js';
+import { Fetcher } from '../fetch.js';
 const $arenas = document.querySelector('.arenas');
 
 export class Game {
   /**
-   * Метод getPlayers вызывается из метода start.
-   * Делает fetch-запрос на сервер, дожидается ответа, парсит ответ из JSON в JS
-   * @returns {array} - Массив объектов персонажей с полями id, name, img, hp, avatar
-   */
-  getPlayers() {
-    return fetch('https://reactmarathon-api.herokuapp.com/api/mk/players').then(res => res.json());
-  }
-
-  /**
-   * Метод start запускает метод getPlayers, дожидается ответа с массивом объектов перосонажей
+   * Метод получает результат промиса с массивом объектов перосонажей,
    * и кладет его в переменную players,
-   * Затем с пом-ю метода getRandome выбирает случайного персонажа из массиива
-   * и кладет их в переменную p1,
+   * Затем с пом-ю метода getRandome выбирает случайного персонажа из этого массиива
+   * и кладет его в переменную userObj,
    * делает запрос на сервер для получения случаного врага,
-   * кладет ответ в p2,
+   * кладет ответ в enemyObj,
    * создает объекты player 1/2 - экземпляры классов User и Enemy,
-   * с пом-ю spred-оператора расширяет экземпляры полями player и полями объектов p1 и p2 соотв.,
+   * с пом-ю spred-оператора расширяет экземпляры полями player и полями объектов userObj и enemyObj соотв.,
    * дважды вызывается метод createPlayer для объектов player 1/2,
    * возвращающиий  переменные $player, содержащие набор html-элементов для игроков,
    * добавляет $player на арену,
@@ -31,19 +23,19 @@ export class Game {
    * при возниникновении событиия вызывается метод hit.
    */
   async start() {
-    const players = await this.getPlayers();
-    const p1 = players[Utils.getRandome(players.length) - 1];
-    const p2 = await fetch('https://reactmarathon-api.herokuapp.com/api/mk/player/choose').then(res => res.json());
+    const players = await Fetcher.getPlayers();
+    const userObj = players[Utils.getRandome(players.length) - 1];
+    const enemyObj = await Fetcher.getEnemy();
 
     this.player1 = new User({
-      ...p1,
+      ...userObj,
       player: 1,
       // rootSelector: 'arenas', //это поле может понадобится,
       // если я вынесу  $arenas.appendChild в отдельный метод
     });
 
     this.player2 = new Enemy({
-      ...p2,
+      ...enemyObj,
       player: 2,
       // rootSelector: 'arenas', //это поле может понадобится,
       // если я вынесу  $arenas.appendChild в отдельный метод
