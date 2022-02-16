@@ -6,7 +6,8 @@ const $arenas = document.querySelector('.arenas');
 
 export class Game {
   /**
-   * Метод getPlayers вызывается из метода start
+   * Метод getPlayers вызывается из метода start.
+   * Делает fetch-запрос на сервер, дожидается ответа, парсит ответ из JSON в JS
    * @returns {array} - Массив объектов персонажей с полями id, name, img, hp, avatar
    */
   getPlayers() {

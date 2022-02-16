@@ -7,7 +7,7 @@ export class Creator {
   /**
    * Метод создает и возвращает HTML-элемент игрока, содержащиий HTML-элементы,
    * необходимые для отображения изображения игрока, его имени и шкалы жизни
-   * @param {object} playerObj - объект игрока
+   * @param {Player} playerObj - объект игрока
    * @returns  {HTMLElement} - HTML-элемент игрока
    */
   static createPlayer(playerObj) {
