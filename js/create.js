@@ -7,12 +7,10 @@ export class Creator {
   /**
    * Метод создает и возвращает HTML-элемент игрока, содержащиий HTML-элементы,
    * необходимые для отображения изображения игрока, его имени и шкалы жизни
-   * @param {Player} playerObj - объект игрока
+   * @param {Player} playerObj - объект игрока, деструктурированный на поля player, name, hp, img
    * @returns  {HTMLElement} - HTML-элемент игрока
    */
-  static createPlayer(playerObj) {
-    const { player, name, hp, img } = playerObj;
-
+  static createPlayer({ player, name, hp, img }) {
     const $player = Utils.createElement('div', `player${player}`);
     const $progressbar = Utils.createElement('div', 'progressbar');
     const $character = Utils.createElement('div', 'character');
