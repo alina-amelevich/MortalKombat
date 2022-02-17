@@ -73,7 +73,7 @@ export class Logs {
     let text;
     const currentTime = Utils.getTime();
     const randomPhrase = LOGS[type][
-      Utils.getRandome(LOGS[type].length) - 1
+      Utils.getRandom(LOGS[type].length) - 1
     ];
 
     switch (type) {

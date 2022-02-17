@@ -34,7 +34,7 @@ export class Utils {
    * @param {number} max - верхняя граниица промежутка, в котором необходимо получить рандомное число
    * @returns {number} - случайное целое число
    */
-  static getRandome(max) {
+  static getRandom(max) {
     return Math.floor(Math.random() * (max - 1 + 1) + 1);
   }
 }
