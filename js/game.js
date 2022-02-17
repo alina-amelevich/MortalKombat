@@ -74,13 +74,15 @@ export class Game {
    * changeHP и renderHP не вызываются),
    * затем вызывается метод showResult.
    */
-  hit() {
+  async hit() {
     const { player1, player2 } = this;
-    const userPlayer = Fight.attack().player1;
-    const enemy = Fight.attack().player2;
+    const attackObj = await Fight.attack();
+    console.log('attackObj: ', attackObj);
+    console.log('attackObj.player1: ', attackObj.player1);
+    console.log('attackObj.player2: ', attackObj.player2);
 
-    const { value: userVal, hit: userHit, defence: userDef } = userPlayer;
-    const { value: enemyVal, hit: enemyHit, defence: enemyDef } = enemy;
+    const { value: userVal, hit: userHit, defence: userDef } = attackObj.player1;
+    const { value: enemyVal, hit: enemyHit, defence: enemyDef } = attackObj.player2;
 
     if (enemyHit !== userDef) {
       player1.changeHP(enemyVal);

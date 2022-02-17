@@ -1,10 +1,40 @@
 'use strict'
 
-// import { Player } from './player.js';
-// import { Utils } from './utils.js';
 import { Fetcher } from '../fetch.js';
 
 export const $formFight = document.querySelector('.control');
+
+export class Fight {
+  /**
+  * Метод создает объект, содержащий инфу об ударе и защите user:
+  * hit - часть тела, куда user наносит удар, defence - часть тела, которую user защищает,
+  * затем передает этот объект в качестве параметра вызываемому методу Fetcher.getFight и возвращает полученный промис
+  * @returns {Promise < object >} - Промис с объектом attack с полями player1 и player2,
+  * значениями которых являются объекты, описывающиие, сколько нанесли урона, что защищают и бьют.  */
+  static attack() {
+    const userAttack = {};
+
+    for (let item of $formFight) {
+      if (item.checked && item.name === 'hit') {
+        userAttack.hit = item.value;
+      }
+
+      if (item.checked && item.name === 'defence') {
+        userAttack.defence = item.value;
+      }
+
+      item.checked = false;
+    }
+
+    return Fetcher.getFight(userAttack);
+  }
+}
+
+
+
+// import { Player } from './player.js';
+// import { Utils } from './utils.js';
+
 
 // const ATTACK = ['head', 'body', 'foot'];
 // const HIT = {
@@ -58,31 +88,4 @@ export const $formFight = document.querySelector('.control');
 //   }
 // }
 
-export class Fight {
-  /**
-  * Метод создает объект, содержащий инфу об ударе и защите user:
-  * hit - часть тела, куда user наносит удар, defence - часть тела, которую user защищает,
-  * затем передает этот объект в качестве параметра вызываемому методу Fetcher.getFight и кладет результат полученного промиса в переменную attack
-  * @returns {object} - объект attack с полями player1 и player2,
-  * значениями которых являются объекты, описывающиие, сколько нанесли урона, что защищают и бьют.  */
-  static async attack() {
-    const userAttack = {};
-
-    for (let item of $formFight) {
-      if (item.checked && item.name === 'hit') {
-        userAttack.hit = item.value;
-      }
-
-      if (item.checked && item.name === 'defence') {
-        userAttack.defence = item.value;
-      }
-
-      item.checked = false;
-    }
-
-    const attack = await Fetcher.getFight(userAttack);
-
-    return attack;
-  }
-}
 

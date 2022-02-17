@@ -29,13 +29,10 @@ export class Fetcher {
    * @returns {Promise < object >} - Промис, содержащий объект с полями player1 и player2,
    * значениями которых являются объекты, описывающиие, сколько нанесли урона, что защищают и бьют.
    */
-  static async getFight({ hit, defence }) {
+  static async getFight(userAttack) {
     const res = await fetch('http://reactmarathon-api.herokuapp.com/api/mk/player/fight', {
       method: 'POST',
-      body: JSON.stringify({
-        hit,
-        defence,
-      })
+      body: JSON.stringify(userAttack)
     });
     return res.json();
   }
