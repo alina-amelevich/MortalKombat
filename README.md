@@ -6,14 +6,15 @@ Classes:
 3. Utils (utils.js)
 4. Logs (logs.js)
 5. Player (player.js)
-  5.1 User (fight.js)
-  5.2 Enemy (fight.js)
+6. Fight (fight.js)
+7. Fetcher (fetch.js)
 
 
 Files:
 index.html
 style.css
 js -> create.js
+js -> fetch.js
 js -> fight.js
 js -> game.js
 js -> index.js (панель с выбором персонажей от Zar)
