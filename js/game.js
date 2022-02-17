@@ -4,7 +4,7 @@ import { $formFight, Fight } from './fight.js';
 import { Logs } from './logs.js';
 import { Creator } from './create.js';
 import { Utils } from './utils.js';
-import { Fetcher } from '../fetch.js';
+import { Fetcher } from './fetch.js';
 import { Player } from './player.js';
 const $arenas = document.querySelector('.arenas');
 

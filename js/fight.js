@@ -1,6 +1,6 @@
 'use strict'
 
-import { Fetcher } from '../fetch.js';
+import { Fetcher } from './fetch.js';
 
 export const $formFight = document.querySelector('.control');
 
