@@ -1,10 +1,11 @@
 'use strict'
 
-import { $formFight, User, Enemy } from './fight.js';
+import { $formFight, Fight } from './fight.js';
 import { Logs } from './logs.js';
 import { Creator } from './create.js';
 import { Utils } from './utils.js';
 import { Fetcher } from '../fetch.js';
+import { Player } from './player.js';
 const $arenas = document.querySelector('.arenas');
 
 export class Game {
@@ -26,17 +27,17 @@ export class Game {
    */
   async start() {
     const players = await Fetcher.getPlayers();
-    const userObj = players[Utils.getRandome(players.length) - 1];
+    const userObj = players[Utils.getRandom(players.length) - 1];
     const enemyObj = await Fetcher.getEnemy();
 
-    this.player1 = new User({
+    this.player1 = new Player({
       ...userObj,
       player: 1,
       // rootSelector: 'arenas', //это поле может понадобится,
       // если я вынесу  $arenas.appendChild в отдельный метод
     });
 
-    this.player2 = new Enemy({
+    this.player2 = new Player({
       ...enemyObj,
       player: 2,
       // rootSelector: 'arenas', //это поле может понадобится,
@@ -75,8 +76,8 @@ export class Game {
    */
   hit() {
     const { player1, player2 } = this;
-    const userPlayer = player1.attack();
-    const enemy = player2.attack();
+    const userPlayer = Fight.attack().player1;
+    const enemy = Fight.attack().player2;
 
     const { value: userVal, hit: userHit, defence: userDef } = userPlayer;
     const { value: enemyVal, hit: enemyHit, defence: enemyDef } = enemy;
