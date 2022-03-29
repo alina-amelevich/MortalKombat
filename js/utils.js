@@ -3,18 +3,23 @@
 export class Utils {
 
   /**
-   * Метод создает HTML-элементы и присваиивает css-класс
-   * @param {string} tag - название тега, который будет создан
-   * @param {string} className - название css-класса, который будет присвоен тэгу
-   * @returns {HTMLElement} - HTML-элемент с привоенным css-классом
+   * Метод создает HTML-элементы и присваивает css-класс (или классы)
+   * @param {string} tag - название тэга, который необходимо создать
+   * @param {string or [string]} className - названиие (или массив названий) css-класса, которое будет присвоено тэгу
+   * @returns {HTMLElement} -  HTML-элемент с привоенным css-классом
    */
   static createElement(tag, className) {
     const $tag = document.createElement(tag);
 
     if (className) {
-      $tag.classList.add(className);
+      if (Array.isArray(className)) {
+        className.forEach(item => {
+          $tag.classList.add(item);
+        })
+      } else {
+        $tag.classList.add(className);
+      }
     }
-
     return $tag;
   }
 
