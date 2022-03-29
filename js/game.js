@@ -77,10 +77,6 @@ export class Game {
   async hit() {
     const { player1, player2 } = this;
     const attackObj = await Fight.attack();
-    console.log('attackObj: ', attackObj);
-    console.log('attackObj.player1: ', attackObj.player1);
-    console.log('attackObj.player2: ', attackObj.player2);
-
     const { value: userVal, hit: userHit, defence: userDef } = attackObj.player1;
     const { value: enemyVal, hit: enemyHit, defence: enemyDef } = attackObj.player2;
 
