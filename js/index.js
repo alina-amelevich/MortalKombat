@@ -1,25 +1,11 @@
+'use strict'
+import { Utils } from './utils.js';
 const $parent = document.querySelector('.parent');
 const $player = document.querySelector('.player');
 
-const createElement = (tag, className) => {
-    const $tag = document.createElement(tag);
-    if (className) {
-        if (Array.isArray(className)) {
-            className.forEach(item => {
-                $tag.classList.add(item);
-            })
-        } else {
-            $tag.classList.add(className);
-        }
-
-    }
-
-    return $tag;
-}
-
 function createEmptyPlayerBlock() {
-    const el = createElement('div', ['character', 'div11', 'disabled']);
-    const img = createElement('img');
+    const el = Utils.createElement('div', ['character', 'div11', 'disabled']);
+    const img = Utils.createElement('img');
     img.src = 'http://reactmarathon-api.herokuapp.com/assets/mk/avatar/11.png';
     el.appendChild(img);
     $parent.appendChild(el);
@@ -35,13 +21,13 @@ async function init() {
 
 
     players.forEach(item => {
-        const el = createElement('div', ['character', `div${item.id}`]);
-        const img = createElement('img');
+        const el = Utils.createElement('div', ['character', `div${item.id}`]);
+        const img = Utils.createElement('img');
 
         el.addEventListener('mousemove', () => {
             if (imgSrc === null) {
                 imgSrc = item.img;
-                const $img = createElement('img');
+                const $img = Utils.createElement('img');
                 $img.src = imgSrc;
                 $player.appendChild($img);
             }
