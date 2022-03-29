@@ -6,7 +6,7 @@ export class Utils {
    * Метод создает HTML-элементы и присваиивает css-класс
    * @param {string} tag - название тега, который будет создан
    * @param {string} className - название css-класса, который будет присвоен тэгу
-   * @returns {HTMLElement} HTML-элемент с привоенным css-классом
+   * @returns {HTMLElement} - HTML-элемент с привоенным css-классом
    */
   static createElement(tag, className) {
     const $tag = document.createElement(tag);
