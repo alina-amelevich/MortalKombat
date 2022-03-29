@@ -28,7 +28,7 @@ body {
 }
 
 .root {
-  display: flex;
+  display: none;
   justify-content: center;
   width: 100%;
   flex-direction: column;
@@ -38,7 +38,7 @@ body {
 }
 
 .initpage {
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
