@@ -58,13 +58,12 @@ async function init() {
 
             el.classList.add('active');
 
+            // Путем скрытия страницы выбора игрока реализовано перенаправление на игровое поле
             $initPage.style.display = 'none';
             $root.style.display = 'flex';
+            // Можно было сделать отельные html-файлы и перенапрвлять на файл с ареной:
             // setTimeout(() => {
-            //     // TODO: Здесь должен быть код который перенаправит вас на ваше игровое поле...
-            //     //  Можно было сделать отельные html-файлы и перенапрвлять на файл с ареной:
-            //     // window.location.pathname = 'arenas.html';
-
+            //      window.location.pathname = 'arenas.html';
             // }, 1000);
         });
 
