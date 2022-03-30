@@ -2,8 +2,10 @@
 
 import { Utils } from './utils.js';
 
+const $initPage = document.querySelector('.initpage');
 const $parent = document.querySelector('.parent');
 const $player = document.querySelector('.player');
+const $root = document.querySelector('.root');
 
 /**
  * Функция для создания центрального некликабльного блока с логотопом игры
@@ -56,11 +58,14 @@ async function init() {
 
             el.classList.add('active');
 
-            setTimeout(() => {
-                // TODO: Здесь должен быть код который перенаправит вас на ваше игровое поле...
-                //  Пример использования: window.location.pathname = 'arenas.html';
-                window.location.pathname = 'index.html'
-            }, 1000);
+            $initPage.style.display = 'none';
+            $root.style.display = 'flex';
+            // setTimeout(() => {
+            //     // TODO: Здесь должен быть код который перенаправит вас на ваше игровое поле...
+            //     //  Можно было сделать отельные html-файлы и перенапрвлять на файл с ареной:
+            //     // window.location.pathname = 'arenas.html';
+
+            // }, 1000);
         });
 
         img.src = item.avatar;
