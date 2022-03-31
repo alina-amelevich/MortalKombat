@@ -139,10 +139,10 @@ body {
 .initpage .character.active:before {
   content: "";
   display: block;
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  top: -2px;
-  left: -2px;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  top: -4px;
+  left: -4px;
   position: absolute;
   border: 14px solid #21aa21;
 }
