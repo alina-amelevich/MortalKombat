@@ -2,7 +2,6 @@
 
 import { Utils } from './utils.js';
 
-
 export class Logs {
 
   constructor() {

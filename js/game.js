@@ -3,51 +3,53 @@
 import { $formFight, Fight } from './fight.js';
 import { Logs } from './logs.js';
 import { Creator } from './create.js';
-import { Utils } from './utils.js';
 import { Fetcher } from './fetch.js';
 import { Player } from './player.js';
-const $arenas = document.querySelector('.arenas');
 
 export class Game {
+
+  constructor() {
+    this.$arenas = document.querySelector('.arenas');
+    this.logs = new Logs();
+  }
   /**
-   * Метод получает результат промиса с массивом объектов перосонажей,
-   * и кладет его в переменную players,
-   * Затем с пом-ю метода getRandome выбирает случайного персонажа из этого массиива
-   * и кладет его в переменную userObj,
-   * делает запрос на сервер для получения случаного врага,
-   * кладет ответ в enemyObj,
-   * создает объекты player 1/2 - экземпляры классов User и Enemy,
-   * с пом-ю spred-оператора расширяет экземпляры полями player и полями объектов userObj и enemyObj соотв.,
+   * Чтобы получить объект игрока и положить в переменную userObj,
+   * строка под ключом player1 достается из localStorage
+   * и распаршивается методом JSON.parse(localStorage.getItem('player1'));
+   * делается запрос на сервер для получения случаного врага,
+   * ответ кладтся в enemyObj,
+   * создаются объекты player 1/2 - экземпляры классов User и Enemy,
+   * с пом-ю spred-оператора экземпляры расширяются полями player и полями объектов userObj и enemyObj соотв.,
    * дважды вызывается метод createPlayer для объектов player 1/2,
    * возвращающиий  переменные $player, содержащие набор html-элементов для игроков,
-   * добавляет $player на арену,
-   * вызывает generateLogs для генерации стартовых логов,
-   * подписывается под событие нажатия кнопки 'FIGHT',
-   * при возниникновении событиия вызывается метод hit.
+   * $player добавляется на арену,
+   * вызывается generateLogs для генерации стартовых логов;
+   * подписка на событие нажатия кнопки 'FIGHT',
+   * при возниникновении события вызывается метод hit.
    */
   async start() {
-    const players = await Fetcher.getPlayers();
-    const userObj = players[Utils.getRandom(players.length) - 1];
+    const userObj = JSON.parse(localStorage.getItem('player1'));
+    console.log('userObj', userObj);
     const enemyObj = await Fetcher.getEnemy();
 
     this.player1 = new Player({
       ...userObj,
       player: 1,
       // rootSelector: 'arenas', //это поле может понадобится,
-      // если я вынесу  $arenas.appendChild в отдельный метод
+      // если я вынесу  this.$arenas.appendChild в отдельный метод
     });
 
     this.player2 = new Player({
       ...enemyObj,
       player: 2,
       // rootSelector: 'arenas', //это поле может понадобится,
-      // если я вынесу  $arenas.appendChild в отдельный метод
+      // если я вынесу  this.$arenas.appendChild в отдельный метод
     });
 
-    $arenas.appendChild(Creator.createPlayer(this.player1)); //получ. $player и добавляем на арену
-    $arenas.appendChild(Creator.createPlayer(this.player2));
+    this.$arenas.appendChild(Creator.createPlayer(this.player1)); //получ. $player и добавляем на арену
+    this.$arenas.appendChild(Creator.createPlayer(this.player2));
 
-    Logs.generateLogs('start', this.player1, this.player2);
+    this.logs.generateLogs('start', this.player1, this.player2);
 
     $formFight.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -83,17 +85,17 @@ export class Game {
     if (enemyHit !== userDef) {
       player1.changeHP(enemyVal);
       player1.renderHP();
-      Logs.generateLogs('hit', player2, player1, enemyVal);
+      this.logs.generateLogs('hit', player2, player1, enemyVal);
     } else {
-      Logs.generateLogs('defence', player2, player1);
+      this.logs.generateLogs('defence', player2, player1);
     }
 
     if (userHit !== enemyDef) {
       player2.changeHP(userVal);
       player2.renderHP();
-      Logs.generateLogs('hit', player1, player2, userVal);
+      this.logs.generateLogs('hit', player1, player2, userVal);
     } else {
-      Logs.generateLogs('defence', player1, player2);
+      this.logs.generateLogs('defence', player1, player2);
     }
 
     this.showResult();
@@ -114,18 +116,18 @@ export class Game {
 
     if (player1.hp === 0 || player2.hp === 0) {
       $formFight.style.display = 'none';
-      $arenas.appendChild(Creator.createReloadButton());
+      this.$arenas.appendChild(Creator.createReloadButton());
     }
 
     if (player2.hp === 0 && player2.hp < player1.hp) {
-      Logs.generateLogs('end', player1, player2);
-      $arenas.appendChild(Creator.createWinTitle(player1.name));
+      this.logs.generateLogs('end', player1, player2);
+      this.$arenas.appendChild(Creator.createWinTitle(player1.name));
     } else if (player1.hp === 0 && player1.hp < player2.hp) {
-      Logs.generateLogs('end', player2, player1);
-      $arenas.appendChild(Creator.createWinTitle(player2.name));
+      this.logs.generateLogs('end', player2, player1);
+      this.$arenas.appendChild(Creator.createWinTitle(player2.name));
     } else if (player1.hp === 0 && player2.hp === 0) {
-      Logs.generateLogs('draw');
-      $arenas.appendChild(Creator.createWinTitle());
+      this.logs.generateLogs('draw');
+      this.$arenas.appendChild(Creator.createWinTitle());
     }
   }
 

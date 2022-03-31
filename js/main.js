@@ -1,7 +1,10 @@
 'use strict'
 
-import { Game } from './game.js';
+// import { Game } from './game.js';
+import { PlayerSelection } from './playerSelection.js';
 
-const game = new Game();
+const playerSelection = new PlayerSelection();
+playerSelection.init();
 
-game.start();
+// const game = new Game();
+// game.start();
