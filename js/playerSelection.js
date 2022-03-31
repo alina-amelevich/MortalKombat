@@ -11,6 +11,8 @@ export class PlayerSelection {
 		this.$parent = document.querySelector('.parent');
 		this.$player = document.querySelector('.player');
 		this.$root = document.querySelector('.root');
+
+		this.imgSrc = null;
 	}
 
 	/**
@@ -24,18 +26,18 @@ export class PlayerSelection {
 		this.$parent.appendChild(el);
 	}
 
-	highlightСharacter(item, imgSrc) {
-		if (imgSrc === null) {
-			imgSrc = item.img;
+	highlightСharacter(item) {
+		if (this.imgSrc === null) {
+			this.imgSrc = item.img;
 			const $img = Utils.createElement('img');
-			$img.src = imgSrc;
+			$img.src = this.imgSrc;
 			this.$player.appendChild($img);
 		}
 	}
 
-	removeCharacterHighlight(imgSrc) {
-		if (imgSrc) {
-			imgSrc = null;
+	removeCharacterHighlight() {
+		if (this.imgSrc) {
+			this.imgSrc = null;
 			this.$player.innerHTML = '';
 		}
 	}
@@ -69,17 +71,15 @@ export class PlayerSelection {
 
 		const players = await Fetcher.getPlayers();
 
-		let imgSrc = null;
 		this.createEmptyPlayerBlock();
-
 
 		players.forEach(item => {
 			const el = Utils.createElement('div', ['character', `div${item.id}`]);
 			const img = Utils.createElement('img');
 
-			el.addEventListener('mousemove', () => this.highlightСharacter(item, imgSrc));
+			el.addEventListener('mousemove', () => this.highlightСharacter(item));
 
-			el.addEventListener('mouseout', () => this.removeCharacterHighlight(imgSrc));
+			el.addEventListener('mouseout', this.removeCharacterHighlight.bind(this));
 
 			el.addEventListener('click', () => this.onClickFunc(item, el));
 
