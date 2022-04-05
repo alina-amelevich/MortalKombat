@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 import { Utils } from './utils.js';
 

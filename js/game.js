@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 import { $formFight, Fight } from './fight.js';
 import { Logs } from './logs.js';

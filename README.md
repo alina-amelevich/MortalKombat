@@ -17,7 +17,7 @@ js -> create.js
 js -> fetch.js
 js -> fight.js
 js -> game.js
-js -> playerSelection.js (панель с выбором персонажей от Zar)
+js -> playerselection.js (панель с выбором персонажей от Zar)
 js -> logs.js
 js -> main.js
 js -> player.js
