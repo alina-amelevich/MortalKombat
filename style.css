@@ -204,7 +204,7 @@ body {
   left: -2px;
   position: absolute;
   z-index: 3;
-  animation: border-animation-enemy 0.3s ease;
+  animation: border-animation-enemy 0.4s ease;
 }
 
 .wall-left {

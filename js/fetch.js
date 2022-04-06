@@ -8,8 +8,14 @@ export class Fetcher {
   * с полями id, name, img, hp, avatar
   */
   static async getPlayers() {
+    const playersInJson = localStorage.getItem('playersArr');
+    if (playersInJson) {
+      return JSON.parse(playersInJson);
+    }
     const res = await fetch('https://reactmarathon-api.herokuapp.com/api/mk/players');
+    localStorage.setItem('playersArr', await res.text());
     return res.json();
+
   }
 
   /**

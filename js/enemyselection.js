@@ -9,35 +9,38 @@ export class EnemySelection {
     this.$enemyDiv = document.querySelector('.initpage .enemy');
     this.$activeCharacter = undefined;
     this.interval = undefined;
+    this.$img = Utils.createElement('img');
+
   }
 
-  showCharacter(randomNumb) {
-    this.$enemyDiv.innerHTML = '';
-    const item = this.players.find(item => item.id === randomNumb);
+  showCharacter() {
+    if (!this.$img.src) {
+      this.$enemyDiv.appendChild(this.$img);
+    }
+    const item = this.players.find(item => item.id === this.randomNumb);
     const caracterImgSrc = item.img;
-    const $caracterImg = Utils.createElement('img');
-    $caracterImg.src = caracterImgSrc;
-    this.$enemyDiv.appendChild($caracterImg);
+    this.$img.src = caracterImgSrc;
+
   }
 
 
   selectRandomly() {
-    let randomNumb;
-    while (randomNumb == undefined || randomNumb === 11) {
-      randomNumb = Utils.getRandom(24);
+    this.prevNumb = this.randomNumb;
+    while (this.randomNumb === this.prevNumb || this.randomNumb === 11) {
+      this.randomNumb = Utils.getRandom(24);
     }
     if (this.$activeCharacter) {
       this.$activeCharacter.classList.remove('active-enemy');
     }
-    this.$activeCharacter = this.$parent.querySelector(`.div${randomNumb}`);
+    this.$activeCharacter = this.$parent.querySelector(`.div${this.randomNumb}`);
     this.$activeCharacter.classList.add('active-enemy');
 
-    this.showCharacter(randomNumb);
+    this.showCharacter();
   }
 
   async startEnemySelectAnimation() {
     this.players = await Fetcher.getPlayers();
-    this.interval = window.setInterval(this.selectRandomly.bind(this), 500);
+    this.interval = window.setInterval(this.selectRandomly.bind(this), 400);
   }
 
   stopEnemySelectAnimation() {
