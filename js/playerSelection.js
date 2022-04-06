@@ -3,6 +3,7 @@
 import { Utils } from './utils.js';
 import { Fetcher } from './fetch.js';
 import { Game } from './game.js';
+import { EnemySelection } from './enemyselection.js';
 
 export class PlayerSelection {
 
@@ -13,6 +14,7 @@ export class PlayerSelection {
 		this.$root = document.querySelector('.root');
 
 		this.imgSrc = null;
+		this.enemySelection = new EnemySelection();
 	}
 
 	/**
@@ -53,6 +55,8 @@ export class PlayerSelection {
 
 		el.classList.add('active');
 
+		this.enemySelection.stopEnemySelectAnimation();
+
 		// Путем скрытия страницы выбора игрока реализовано перенаправление на игровое поле
 		this.$initPage.style.display = 'none';
 		this.$root.style.display = 'flex';
@@ -89,6 +93,8 @@ export class PlayerSelection {
 			el.appendChild(img);
 			this.$parent.appendChild(el);
 		});
+
+		this.enemySelection.startEnemySelectAnimation();
 	}
 }
 
