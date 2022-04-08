@@ -5,6 +5,7 @@ import { Logs } from './logs.js';
 import { Creator } from './create.js';
 import { Fetcher } from './fetch.js';
 import { Player } from './player.js';
+import { Utils } from './utils.js';
 
 export class Game {
 
@@ -29,8 +30,9 @@ export class Game {
    */
   async start() {
     const userObj = JSON.parse(localStorage.getItem('player1'));
-    console.log('userObj', userObj);
     const enemyObj = await Fetcher.getEnemy();
+
+    this.$arenas.classList.add(`arena${Utils.getRandom(5)}`);
 
     this.player1 = new Player({
       ...userObj,
