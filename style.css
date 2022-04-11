@@ -20,7 +20,7 @@
 @keyframes border-animation-enemy
 {
     0% { border: 0px; }
-    80% { border: 10px solid Crimson; }
+    80% { border: 10px solid rgb(143, 20, 220); }
     100%  { border: 1px; }
 }
 
