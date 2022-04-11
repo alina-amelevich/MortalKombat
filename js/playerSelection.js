@@ -4,6 +4,7 @@ import { Utils } from './utils.js';
 import { Fetcher } from './fetch.js';
 import { Game } from './game.js';
 import { EnemySelection } from './enemyselection.js';
+import { AudioManager } from './music.js';
 
 export class PlayerSelection {
 
@@ -71,6 +72,9 @@ export class PlayerSelection {
 	}
 
 	async init() {
+		const audioManager = new AudioManager;
+		audioManager.characterSelectionEvent();
+
 		localStorage.removeItem('player1');
 
 		const players = await Fetcher.getPlayers();

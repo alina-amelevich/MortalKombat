@@ -13,6 +13,7 @@ export class Game {
   constructor() {
     this.$arenas = document.querySelector('.arenas');
     this.logs = new Logs();
+    this.audioManager = new AudioManager;
   }
   /**
    * Чтобы получить объект игрока и положить в переменную userObj,
@@ -30,8 +31,7 @@ export class Game {
    * при возниникновении события вызывается метод hit.
    */
   async start() {
-    const audioManager = new AudioManager;
-    audioManager.randomGameAudio();
+    this.audioManager.randomGameAudio();
 
     const userObj = JSON.parse(localStorage.getItem('player1'));
     const enemyObj = await Fetcher.getEnemy();
@@ -126,9 +126,11 @@ export class Game {
     }
 
     if (player2.hp === 0 && player2.hp < player1.hp) {
+      this.audioManager.winEvent();
       this.logs.generateLogs('end', player1, player2);
       this.$arenas.appendChild(Creator.createWinTitle(player1.name));
     } else if (player1.hp === 0 && player1.hp < player2.hp) {
+      this.audioManager.failEvent();
       this.logs.generateLogs('end', player2, player1);
       this.$arenas.appendChild(Creator.createWinTitle(player2.name));
     } else if (player1.hp === 0 && player2.hp === 0) {
