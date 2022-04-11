@@ -6,6 +6,7 @@ import { Creator } from './create.js';
 import { Fetcher } from './fetch.js';
 import { Player } from './player.js';
 import { Utils } from './utils.js';
+import { AudioManager } from './music.js';
 
 export class Game {
 
@@ -29,6 +30,9 @@ export class Game {
    * при возниникновении события вызывается метод hit.
    */
   async start() {
+    const audioManager = new AudioManager;
+    audioManager.randomGameAudio();
+
     const userObj = JSON.parse(localStorage.getItem('player1'));
     const enemyObj = await Fetcher.getEnemy();
 
